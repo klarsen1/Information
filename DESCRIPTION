@@ -1,0 +1,12 @@
+Package: Information
+Type: Package
+Title: NWOE and WOE Analysis
+Version: 1.0.0.0
+Date: 2015-06-24
+Authors@R: person("Larsen", "Kim", email = "kblarsen4@gmail.com", role = c("aut", "cre"))
+Description: Creates WOE/NWOW tables and ranks variables by IV/NIV
+Depends: R (>= 3.1.2)
+License: Public
+Imports: data.table
+LazyData: true
+   
