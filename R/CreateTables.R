@@ -149,6 +149,7 @@ CreateTables <- function(data, valid=NULL, y, bins=10, trt=NULL, ncore=NULL){
   }
   
   ### Return the results
+  stats$Variable <- as.character(stats$Variable)
   names(tables) <- variables
   object <- list(Tables=tables, Summary=stats)
   class(object) <- "Information"
