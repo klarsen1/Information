@@ -53,7 +53,7 @@ View(NIV$Summary)
 NIV$Tables$N_OPEN_REV_ACTS
 }
 \author{
-Kim Larsen
+Kim Larsen (kblarsen4 _at_ gmail.com)
 }
 \keyword{NIV,}
 \keyword{NWOE,}

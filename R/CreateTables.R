@@ -8,6 +8,7 @@
 #' @param y dependent variable
 #' @param bins number of bins (default is 10)
 #' @param trt binary treatment variable (for net lift modeling). Default is NULL
+#' @param ncore number of cores used. Default is to use detectcores-1.
 #' @export CreateTables
 #' @examples  
 #' ##------------------------------------------------------------
@@ -36,8 +37,14 @@
 #' View(NIV$Summary)
 #' NIV$Tables$N_OPEN_REV_ACTS
 
-CreateTables <- function(data, valid=NULL, y, bins=10, trt=NULL){
 
+CreateTables <- function(data, valid=NULL, y, bins=10, trt=NULL, ncore=NULL){
+
+  comb <- function(x, ...) {
+    lapply(seq_along(x),
+           function(i) c(x[[i]], lapply(list(...), function(y) y[[i]])))
+  }
+  
   ### If no validation dataset, no cross validation
   crossval <- TRUE
   if (is.null(valid)){
@@ -52,30 +59,18 @@ CreateTables <- function(data, valid=NULL, y, bins=10, trt=NULL){
   d_netlift <- 0 # net lift indicator. This triggers different metrics
   if (is.null(trt)==FALSE){
     d_netlift <- 1
-  }  
-  tables <- list(length=length(variables)) # List to hold WOE/NWOE tables
-  if (crossval==TRUE){
-    c <- 4
-  } else{
-    c <- 2
-  }
-  stats <- data.frame(matrix(nrow=length(variables), ncol=c)) # data.frame to hold summary stats
-  if (crossval==TRUE){
-    if (d_netlift==0){
-      names(stats) <- c("Variable", "IV", "PENALTY", "AdjIV")
-    } else{
-      names(stats) <- c("Variable", "NIV", "PENALTY", "AdjNIV")    
-    }
-  } else{
-    if (d_netlift==0){
-      names(stats) <- c("Variable", "IV")
-    } else{
-      names(stats) <- c("Variable", "NIV")    
-    }
   }
   
+  if (is.null(ncore)){
+     ncore <- parallel::detectCores()-1
+  } 
+  
+  registerDoMC(ncore)
+  
   ### Loop through variables
-  for (i in 1:length(variables)){
+  loopResult <- foreach(i=1:length(variables), .combine='comb', .multicombine=TRUE,
+                       .init=list(list(), list())) %dopar% {
+    
     data$var <- data[[variables[i]]]
     cuts <- NULL
     if (crossval==TRUE){
@@ -106,12 +101,11 @@ CreateTables <- function(data, valid=NULL, y, bins=10, trt=NULL){
         woe_train <- penalty(woe_train, woe_valid, 0)
       }
       woe_train[,c("IV_weight")] <- NULL
-      tables[[i]] <- woe_train
-      stats[i,"Variable"] <- variables[i]
-      stats[i,"IV"] <- woe_train[nrow(woe_train),"IV"]
+      strength <- data.frame(variables[i], woe_train[nrow(woe_train),"IV"])
+      names(strength) <- c("Variable", "IV")
       if (crossval==TRUE){
-        stats[i,"PENALTY"] <- woe_train[nrow(woe_train),"PENALTY"]
-        stats[i,"AdjIV"] <- stats[i,"IV"] - stats[i,"PENALTY"]
+        strength$PENALTY <- woe_train[nrow(woe_train),"PENALTY"]
+        strength$AdjIV <- stats$IV - stats$PENALTY
       }
     } else{
       nwoe_train <- NWOE(summary_train, variables[i])      
@@ -122,15 +116,22 @@ CreateTables <- function(data, valid=NULL, y, bins=10, trt=NULL){
         nwoe_train <- penalty(nwoe_train, nwoe_valid, 1)
       }
       nwoe_train[,c("NIV_weight")] <- NULL
-      tables[[i]] <- nwoe_train
-      stats[i,"Variable"] <- variables[i]
-      stats[i,"NIV"] <- nwoe_train[nrow(nwoe_train),"NIV"]
+      strength <- data.frame(variables[i], nwoe_train[nrow(nwoe_train),"NIV"])
+      names(strength) <- c("Variable", "NIV")
       if (crossval==TRUE){
-        stats[i,"PENALTY"] <- nwoe_train[nrow(nwoe_train),"PENALTY"]
-        stats[i,"AdjNIV"] <- stats[i,"NIV"] - stats[i,"PENALTY"]
+        strength$PENALTY <- nwoe_train[nrow(nwoe_train),"PENALTY"]
+        strength$AdjNIV <- stats$NIV - stats$PENALTY
       }
     }    
+    if (d_netlift==1){
+      list(nwoe_train, strength)
+    } else{
+      list(woe_train, strength)
+    }
   }
+  
+  tables <- loopResult[[1]]
+  stats <- data.frame(rbindlist(loopResult[[2]]))
   
   ### Sort by adjusted IV/NIV, or raw IV/NIV
   if (crossval==TRUE){

@@ -4,7 +4,7 @@
 \alias{CreateTables}
 \title{Create WOE/NWOE tables and rank variables by IV/NIV}
 \usage{
-CreateTables(data, valid = NULL, y, bins = 10, trt = NULL)
+CreateTables(data, valid = NULL, y, bins = 10, trt = NULL, ncore = NULL)
 }
 \arguments{
 \item{data}{input dataset for analysis (this is typically your training dataset)}
@@ -16,6 +16,8 @@ CreateTables(data, valid = NULL, y, bins = 10, trt = NULL)
 \item{bins}{number of bins (default is 10)}
 
 \item{trt}{binary treatment variable (for net lift modeling). Default is NULL}
+
+\item{ncore}{number of cores used. Default is to use detectcores-1.}
 }
 \description{
 \code{CreateTables} returns WOE or NWOE tables (as data.frames), and a data.frame with IV or NIV values for all
