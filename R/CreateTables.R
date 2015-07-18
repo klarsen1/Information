@@ -9,6 +9,10 @@
 #' @param bins number of bins (default is 10)
 #' @param trt binary treatment variable (for net lift modeling). Default is NULL
 #' @param ncore number of cores used. Default is to use detectcores-1.
+#' 
+#' @import parallel
+#' @import doMC
+#'
 #' @export CreateTables
 #' @examples  
 #' ##------------------------------------------------------------
