@@ -12,6 +12,7 @@
 #' 
 #' @import parallel
 #' @import doMC
+#' @import foreach
 #'
 #' @export CreateTables
 #' @examples  
