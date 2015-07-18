@@ -70,6 +70,8 @@ CreateTables <- function(data, valid=NULL, y, bins=10, trt=NULL, ncore=NULL){
      ncore <- parallel::detectCores()-1
   } 
   
+  if (ncore<1) ncore <- 1
+  
   registerDoMC(ncore)
   
   ### Loop through variables
