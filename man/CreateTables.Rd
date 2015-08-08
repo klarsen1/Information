@@ -29,7 +29,7 @@ predictive variables.
 ##------------------------------------------------------------
 data(train, package="Information")
 train <- subset(train, TREATMENT==1)
-IV <- CreateTables(data=, y="PURCHASE")
+IV <- CreateTables(data=train, y="PURCHASE")
 View(IV$Summary)
 IV$Tables$N_OPEN_REV_ACTS
 

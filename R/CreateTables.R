@@ -21,7 +21,7 @@
 #' ##------------------------------------------------------------
 #' data(train, package="Information")
 #' train <- subset(train, TREATMENT==1)
-#' IV <- CreateTables(data=, y="PURCHASE")
+#' IV <- CreateTables(data=train, y="PURCHASE")
 #' View(IV$Summary)
 #' IV$Tables$N_OPEN_REV_ACTS
 #' 
@@ -112,7 +112,7 @@ CreateTables <- function(data, valid=NULL, y, bins=10, trt=NULL, ncore=NULL){
       names(strength) <- c("Variable", "IV")
       if (crossval==TRUE){
         strength$PENALTY <- woe_train[nrow(woe_train),"PENALTY"]
-        strength$AdjIV <- stats$IV - stats$PENALTY
+        strength$AdjIV <- strength$IV - strength$PENALTY
       }
     } else{
       nwoe_train <- NWOE(summary_train, variables[i])      
@@ -127,7 +127,7 @@ CreateTables <- function(data, valid=NULL, y, bins=10, trt=NULL, ncore=NULL){
       names(strength) <- c("Variable", "NIV")
       if (crossval==TRUE){
         strength$PENALTY <- nwoe_train[nrow(nwoe_train),"PENALTY"]
-        strength$AdjNIV <- stats$NIV - stats$PENALTY
+        strength$AdjNIV <- strength$NIV - strength$PENALTY
       }
     }    
     if (d_netlift==1){
