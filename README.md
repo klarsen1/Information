@@ -24,5 +24,5 @@ Consider a direct marketing program where a *test group* received an offer of so
 The purpose of uplift models is to estimate the difference between the test and control groups, and then using the resulting model to target *persuadables* – i.e., potential or existing clients that are on the fence and need some sort of offer or contract to sign up or buy a product. When preparing to build an uplift model, we cannot only focus on the log odds of *Y*=1 , we need to analyze the *log odds ratio* of *Y*=1 for the test group versus the control group. This can be handled by the *net weight of evidence* (NWOE) and the *net information value* (NIV).
  
 # Installation
-devtools::install_github("Information", "klarsen1")
+devtools::install_github("klarsen1/Information", "klarsen1")
 
