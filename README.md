@@ -11,6 +11,8 @@ Prior to building a binary classification model, a common step is to perform var
 
 The *weight of evidence* (WOE) and *information value* (IV) provide a great framework for analyzing these questions. This is not a new approach to exploratory data analysis for modeling of binary data; WOE and IV have been used extensively in the credit risk world for several decades, and the underlying theory dates back to the 1950s.  
 
+# The Information Package
+
 The information package is designed to perform exploratory data analysis and variable screening for binary classification models using WOE and IV. Aggregations and done in data.table, and creation of WOE vectors can be distributed across multiple cores. Thus the package is fairly fast.
 
 For details, see the file called information.pdf in the Doc directory.
