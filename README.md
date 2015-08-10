@@ -11,11 +11,12 @@ Prior to building a binary classification model, a common step is to perform var
 
 The *weight of evidence* (WOE) and *information value* (IV) provide a great framework for analyzing these questions. This is not a new approach to exploratory data analysis for modeling of binary data; WOE and IV have been used extensively in the credit risk world for several decades, and the underlying theory dates back to the 1950s.  
 
+For details, see the file called information.pdf in the Doc directory.
+
+
 # The Information Package
 
 The information package is designed to perform exploratory data analysis and variable screening for binary classification models using WOE and IV. Aggregations and done in data.table, and creation of WOE vectors can be distributed across multiple cores. The information package also provides support for exploratory analysis for uplift models.
-
-For details, see the file called information.pdf in the Doc directory.
 
 # Extensions to Exploratory Analysis for Uplift Models
 Consider a direct marketing program where a *test group* received an offer of some sort, and the *control group* did not receive anything. The test and control groups are based on a random split. The lift of the campaign is defined as the difference in success rates between the test and control groups. In other words, the program can only be deemed successful if the offer outperforms the "do nothing" (a.k.a baseline) scenario.
