@@ -23,10 +23,6 @@
 
 MultiPlotWOE <- function(information_object, variables, same_scale=FALSE) {
   
-  #if (length(variables)>9){
-  #  variables <- variables[1:9]
-  #}
-  
   cols <- ceiling(length(variables)/3)
   if (cols>3) {cols <- 3}
   
