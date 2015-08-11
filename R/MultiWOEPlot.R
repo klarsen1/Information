@@ -3,20 +3,23 @@
 #' \code{MultiPlotWOE} creates a multiple WOE bar charts on the same page for a specified vector of variables. 
 #' Multiple pages will be created if needed (9 plots per page). 
 #' 
-#' @param variables vector of variables
+#' @param variables vector of variables that you want to compare
 #' @param information_object object from the information package
+#' @param same_scale should all plots have the same limits on the y-axes (default is FALSE)
 #' 
 #' @import grid
 #'
 #' @export MultiPlotWOE
 #' @examples  
 #' ##------------------------------------------------------------
-#' ## WOE plots, no validation
+#' ## WOE plots. First plotting two variables, and then all
+#' variables with IV>0.1
 #' ##------------------------------------------------------------
 #' data(train, package="Information")
 #' train <- subset(train, TREATMENT==1)
 #' IV <- CreateTables(data=train, y="PURCHASE")
 #' MultiPlotWOE(IV, c("N_OPEN_REV_ACTS", "AGE"))
+#' MultiPlotWOE(IV, subset(IV$Summary, IV>0.1)$Variable)
 
 MultiPlotWOE <- function(information_object, variables, same_scale=FALSE) {
   
