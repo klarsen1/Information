@@ -2,6 +2,7 @@
 
 export(Aggregate)
 export(CreateTables)
+export(MultiPlotWOE)
 export(NWOE)
 export(PlotWOE)
 export(WOE)
@@ -11,4 +12,5 @@ import(data.table)
 import(doMC)
 import(foreach)
 import(ggplot2)
+import(grid)
 import(parallel)

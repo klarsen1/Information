@@ -19,11 +19,16 @@
 #'
 #' @name Information
 #' @examples 
-#' The only function you will need to call is CreateTables(). 
+#' The only functions you will need to call are CreateTables(), PlotWOE and MultiPlotWOE 
 #' CreateTables() creates WOE/NWOE tables (accessed by
 #' Tables$<variable name>) and outputs a data.frame that 
 #' contains IV or NIV for all variables.
 #' IV and NIV values are found in the Summary data.frame. 
+#' 
+#' PlotWOE() plots the WOE vector for a sigle variable
+#' 
+#' MultiPlotWOE() plots WOE vectors for multiple variables on a single page. Multiple pages will be created
+#' if needed (9 plots per page). 
 #'
 #' ##------------------------------------------------------------
 #' ## WOE analysis, no validation
@@ -33,6 +38,15 @@
 #' IV <- CreateTables(data=train, y="PURCHASE")
 #' View(IV$Summary)
 #' IV$Tables$N_OPEN_REV_ACTS
+#' 
+#' ##------------------------------------------------------------
+#' ## WOE plots
+#' ##------------------------------------------------------------
+#' data(train, package="Information")
+#' train <- subset(train, TREATMENT==1)
+#' IV <- CreateTables(data=train, y="PURCHASE")
+#' MultiPlotWOE(IV, IV$Summary$Variable[1:18])
+#' PlotWOE(IV, "N_OPEN_REV_ACTS")
 #' 
 #' ##------------------------------------------------------------
 #' ## NWOE analysis, no validation

@@ -4,19 +4,19 @@
 \alias{PlotWOE}
 \title{Plot a WOE vector}
 \usage{
-PlotWOE(object, variable)
+PlotWOE(information_object, variable)
 }
 \arguments{
-\item{variable}{variable for which we want to see the WOE pattern}
+\item{information_object}{object from the information package}
 
-\item{tables}{list object from the information package}
+\item{variable}{variable for which we want to see the WOE pattern}
 }
 \description{
 \code{PlotWOE} creates a bar chart of the WOE pattern for a specified variable
 }
 \examples{
 ##------------------------------------------------------------
-## WOE analysis, no validation
+## WOE plot, no validation
 ##------------------------------------------------------------
 data(train, package="Information")
 train <- subset(train, TREATMENT==1)
