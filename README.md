@@ -18,9 +18,27 @@ WOE and IV enable one to:
 
 For details, see the file called information.pdf in the Doc directory.
 
-# The Information Package
+# About the Package
 
-The information package is designed to perform exploratory data analysis and variable screening for binary classification models using WOE and IV. Aggregations and done in data.table, and creation of WOE vectors can be distributed across multiple cores. The information package also provides support for exploratory analysis for uplift models.
+The information package is designed to perform exploratory data analysis and variable screening for binary classification models using WOE and IV. Aggregations are done in data.table, and creation of WOE vectors can be distributed across multiple cores. Thus the package is fairly fast.
+
+The package can be downloaded from https://github.com/klarsen1/Information.
+
+There are a number of great R packages available that support WOE and IV (see a partial list below), but they are either primarily designed to build WOE-based models – e.g., naive Bayes classifiers – or they do not support the uplift use-case. Hence, despite some redundancy, we saw the need to create the `Information` package.
+
+### Date Used in Examples
+The data is from an historical marketing campaign from the insurance industry and is automatically downloaded when you install the `Information` package. The data is stored in two `.RDA` files, one for the training dataset and one for the validation dataset. Each file has 68 predictive variables and 10k records.
+
+The datasets contain two key indicators: 
+
+* `PURCHASE` This variable equals 1 if the client accepted the offer, and 0 otherwise
+* `TREATMENT` This variable equals 1 if the client was in the test group (received the offer), and 0 otherwise.
+  
+### Key Functions
+
+* `CreateTables()` creates WOE tables and IVs for all variables in the input dataframe.
+* `PlotWOE()` plots the WOE vector for one variable.
+* `MultiPlotWOE()` plots more than one WOE vector on one page for comparisons.
 
 # Extensions to Exploratory Analysis for Uplift Models
 Consider a direct marketing program where a *test group* received an offer of some sort, and the *control group* did not receive anything. The test and control groups are based on a random split. The lift of the campaign is defined as the difference in success rates between the test and control groups. In other words, the program can only be deemed successful if the offer outperforms the "do nothing" (a.k.a baseline) scenario.
