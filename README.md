@@ -50,3 +50,18 @@ For details, see the file called information.pdf in the Doc directory.
 # Installation
 devtools::install_github("klarsen1/Information", "klarsen1")
 
+# References
+
+[1] Hastie, Trevor , Tibshirani, Robert and Friedman, Jerome. (1986), Elements of Statistical Learning, Second Edition, Springer, 2009.
+
+[2] Kullback S., Information Theory and Statistics, John Wiley & Sons, 1959.
+
+# Other Packages that support WOE/IV
+
+woe package, https://cran.r-project.org/web/packages/woe/woe.pdf.
+
+riv package (not to be confused with the riv packake in CRAN), http://www.r-bloggers.com/r-credit-scoring-woe-information-value-in-woe-package/.
+
+klaR package, https://cran.r-project.org/web/packages/klaR/klaR.pdf.
+
+
