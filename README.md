@@ -19,6 +19,8 @@ For details, see the file called information.pdf in the Doc directory.
 
 # About the Package
 
+THIS IS A BETA VERSION.
+
 The information package is designed to perform exploratory data analysis and variable screening for binary classification models using WOE and IV. Aggregations are done in data.table, and creation of WOE vectors can be distributed across multiple cores. Thus the package is fairly fast.
 
 The package can be downloaded from https://github.com/klarsen1/Information.
