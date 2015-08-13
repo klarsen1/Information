@@ -13,7 +13,6 @@ WOE and IV enable one to:
 * Rank variables in terms of "univariate" predictive strength.
 * Visualize the correlations between the predictive variables and the binary outcome.   
 * Seamlessly compare the strength of continuous and categorical variables without dummy-coding.
-* Identify variables with too many missing values.
 * Assess the predictive power of missing values.
 
 For details, see the file called information.pdf in the Doc directory.
