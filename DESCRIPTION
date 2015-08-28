@@ -1,12 +1,13 @@
 Package: Information
 Type: Package
 Title: NWOE and WOE Analysis
-Version: 1.0.0.0
-Date: 2015-06-24
-Authors@R: person("Larsen", "Kim", email = "kblarsen4@gmail.com", role = c("aut", "cre"))
-Description: Creates WOE/NWOW tables and ranks variables by IV/NIV
-Depends: R (>= 3.1.2)
-License: Public
+Version: 0.0.0.9000
+Date: 2015-08-14
+Authors@R: person("Larsen", "Kim", email = "kblarsen4$gmail.com", role = c("aut", "cre"))
+Maintainer: Kim Larsem <kblarsen4@gmail.com>
+Description: The information package is designed to perform exploratory data analysis and variable screening for binary classification models using weight-of-evidence (WOE) and information value (IV). To make the package as efficient as possible aggregations are done in data.table and creation of WOE vectors can be distributed across multiple cores. The package also supports exploration for uplift models (NWOE and NIV).
+Depends: R (>= 3.1.2), parallel
+License: GPL (>=3)
 Imports: data.table
 LazyData: true
    

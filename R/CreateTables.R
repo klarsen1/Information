@@ -10,9 +10,9 @@
 #' @param trt binary treatment variable (for net lift modeling). Default is NULL
 #' @param ncore number of cores used. Default is to use detectcores-1.
 #' 
+#' @import foreach
 #' @import parallel
 #' @import doMC
-#' @import foreach
 #'
 #' @export CreateTables
 #' @examples  

@@ -6,7 +6,9 @@
 \alias{Information-package}
 \title{WOE/NWOE Analysis}
 \description{
-Information creates WOE/NWOE tables, and ranks variables by IV/NIV
+The information package is designed to perform exploratory data analysis and variable screening for binary
+classification models using WOE and IV. The package also supports exploratory analysis and variable screening
+for uplift models (NWOE and NIV).
 }
 \details{
 Given a data.frame with a set of predictive variables and
@@ -67,7 +69,7 @@ View(NIV$Summary)
 NIV$Tables$N_OPEN_REV_ACTS
 }
 \author{
-Kim Larsen (kblarsen4 _at_ gmail.com)
+Kim Larsen (kblarsen4 at gmail.com)
 }
 \keyword{NIV,}
 \keyword{NWOE,}

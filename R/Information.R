@@ -11,11 +11,13 @@
 #' You can cross validate your IV or NIV values by supplying a validation data.frame. CreateTables() cross
 #' validated by calculating the penalized IV/NIV values. 
 #'
-#' @author Kim Larsen (kblarsen4 _at_ gmail.com)
+#' @author Kim Larsen (kblarsen4 at gmail.com)
 #' @keywords WOE, NWOE, NIV, logistc regression
 #' @docType package
 #' @description 
-#' Information creates WOE/NWOE tables, and ranks variables by IV/NIV
+#' The information package is designed to perform exploratory data analysis and variable screening for binary 
+#' classification models using WOE and IV. The package also supports exploratory analysis and variable screening
+#' for uplift models (NWOE and NIV).
 #'
 #' @name Information
 #' @examples 
