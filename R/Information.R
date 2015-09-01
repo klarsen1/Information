@@ -38,7 +38,7 @@
 #' data(train, package="Information")
 #' train <- subset(train, TREATMENT==1)
 #' IV <- CreateTables(data=train, y="PURCHASE")
-#' View(IV$Summary)
+#' IV$Summary
 #' IV$Tables$N_OPEN_REV_ACTS
 #' 
 #' ##------------------------------------------------------------
@@ -55,7 +55,7 @@
 #' ##------------------------------------------------------------
 #' data(train, package="Information")
 #' NIV <- CreateTables(data=train, trt=TREATMENT, y="PURCHASE")
-#' View(NIV$Summary)
+#' NIV$Summary
 #' NIV$Tables$N_OPEN_REV_ACTS
 #' 
 #' ##------------------------------------------------------------
@@ -64,7 +64,7 @@
 #' data(train, package="Information")
 #' data(validation, package="Information")
 #' NIV <- CreateTables(data=train, valid=validation, trt=TREATMENT, y="PURCHASE")
-#' View(NIV$Summary)
+#' NIV$Summary
 #' NIV$Tables$N_OPEN_REV_ACTS
 
 NULL

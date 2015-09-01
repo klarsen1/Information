@@ -1,4 +1,21 @@
-CheckInputs <- function(train, valid, trt, y, crossval){
+#' Check user inputs and convert factors to characters. Provide readable reasons if errors are found.
+#' 
+#' \code{CheckInputs} Checks user inputs and converts factors to characters. Returns the altered datasets as a list. 
+#' Provides readable reasons if errors are found.
+#' 
+#' @param train training data.
+#' @param valid validation dataset (default is NULL)
+#' @param trt treatment indicator
+#' @param y dependent variable
+#'
+#' @export CheckInputs
+
+CheckInputs <- function(train, valid, trt, y){
+  
+  crossval <- TRUE
+  if (is.null(valid)==TRUE){
+    crossval <- FALSE
+  }
   
   if (is.null(train)){
     stop("ERROR: Have to supply a traning dataset")
