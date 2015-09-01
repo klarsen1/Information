@@ -57,7 +57,11 @@ CreateTables <- function(data, valid=NULL, y, bins=10, trt=NULL, ncore=NULL){
   }
 
   ### Check inputs
-  CheckInputs(data, valid, trt, y, crossval)
+  c <- CheckInputs(data, valid, trt, y, crossval)
+  train <- c[[1]]
+  if (crossval==TRUE){
+    valid <- c[[2]]
+  }
       
   ### Set up output containers  
   variables <- names(data)[!(names(data) %in% c(trt, y))]

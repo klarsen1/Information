@@ -97,4 +97,9 @@ CheckInputs <- function(train, valid, trt, y, crossval){
   if (crossval==TRUE){
     valid <- sapply(valid, convert)
   }    
+  if (crossval==TRUE){
+     return(list(train, valid))
+  } else{
+    return(list(train))
+  }
 }
