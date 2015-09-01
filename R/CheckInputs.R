@@ -44,12 +44,12 @@ CheckInputs <- function(train, valid, trt, y, crossval){
   }
   
   if (is.factor(train[[y]])){
-    stop(paste0("ERROR: The dependent variable ", y, " is a factor in training dataset"))
+    stop(paste0("ERROR: The dependent variable ", y, " is a factor in training dataset -- has to be numeric"))
   }  
   
   if (crossval==TRUE){
     if (is.factor(valid[[y]])){
-      stop(paste0("ERROR: The dependent variable ", y, " is a factor in validation dataset"))
+      stop(paste0("ERROR: The dependent variable ", y, " is a factor in validation dataset -- has to be numeric"))
     }  
     if (is.character(valid[[y]])){
       stop(paste0("ERROR: The dependent variable ", y, " is a character variable in either the validation dataset. It has to be numeric"))
@@ -89,4 +89,12 @@ CheckInputs <- function(train, valid, trt, y, crossval){
       }
     }
   }  
+  
+  convert <- function(x){
+    if (is.factor(x)){x <- as.character(x)}
+  }
+  train <- sapply(train, convert)
+  if (crossval==TRUE){
+    valid <- sapply(valid, convert)
+  }    
 }
