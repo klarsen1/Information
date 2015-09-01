@@ -92,6 +92,7 @@ CheckInputs <- function(train, valid, trt, y, crossval){
   
   convert <- function(x){
     if (is.factor(x)){x <- as.character(x)}
+    return(x)
   }
   train <- sapply(train, convert)
   if (crossval==TRUE){
