@@ -91,7 +91,6 @@ CheckInputs <- function(train, valid, trt, y, crossval){
   }  
   train <- as.data.frame(rapply(train, as.character, classes="factor", how="replace"), stringsAsFactors = FALSE)
   if (crossval==TRUE){
-    f <- sapply(valid, is.factor)
     valid <- as.data.frame(rapply(valid, as.character, classes="factor", how="replace"), stringsAsFactors = FALSE)
   }    
   if (crossval==TRUE){
