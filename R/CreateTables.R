@@ -58,7 +58,7 @@ CreateTables <- function(data, valid=NULL, y, bins=10, trt=NULL, ncore=NULL){
 
   ### Check inputs
   c <- CheckInputs(data, valid, trt, y, crossval)
-  train <- c[[1]]
+  data <- c[[1]]
   if (crossval==TRUE){
     valid <- c[[2]]
   }
