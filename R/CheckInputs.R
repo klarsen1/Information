@@ -89,11 +89,10 @@ CheckInputs <- function(train, valid, trt, y, crossval){
       }
     }
   }  
-  f <- sapply(train, is.factor)
-  train <- lapply(f, as.character)
+  train <- as.data.frame(rapply(train, as.character, classes="factor", how="replace"), stringsAsFactors = FALSE)
   if (crossval==TRUE){
     f <- sapply(valid, is.factor)
-    valid <- lapply(f, as.character)
+    valid <- as.data.frame(rapply(valid, as.character, classes="factor", how="replace"), stringsAsFactors = FALSE)
   }    
   if (crossval==TRUE){
      return(list(train, valid))
