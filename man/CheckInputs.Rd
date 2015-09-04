@@ -16,7 +16,7 @@ CheckInputs(train, valid, trt, y)
 \item{y}{dependent variable}
 }
 \description{
-\code{CheckInputs} Checks user inputs and converts factors to characters. Returns the altered datasets as a list.
+\code{CheckInputs} Checks user inputs and converts factors to characters. Returns the altered dataframes as a list.
 Provides readable reasons if errors are found.
 }
 

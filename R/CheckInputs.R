@@ -1,6 +1,6 @@
 #' Check user inputs and convert factors to characters. Provide readable reasons if errors are found.
 #' 
-#' \code{CheckInputs} Checks user inputs and converts factors to characters. Returns the altered datasets as a list. 
+#' \code{CheckInputs} Checks user inputs and converts factors to characters. Returns the altered dataframes as a list. 
 #' Provides readable reasons if errors are found.
 #' 
 #' @param train training data.

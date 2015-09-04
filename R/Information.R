@@ -8,11 +8,10 @@
 #' For NWOE analysis, you must have a "treatment" and a conrol group, identified by a binary treatment indicator.
 #' For regular WOE analysis, all you need is a binary response variable (dependent variable).
 #' 
-#' You can cross validate your IV or NIV values by supplying a validation data.frame. CreateTables() cross
-#' validated by calculating the penalized IV/NIV values. 
+#' You can cross validate your IV or NIV values by supplying a validation dataframe. This will produce penalized IV/NIV values.
 #'
 #' @author Kim Larsen (kblarsen4 at gmail.com)
-#' @keywords WOE, NWOE, NIV, logistc regression
+#' @keywords WOE, NWOE, NIV, logistc regression, information theory, weight of evidence, weight-of-evidence, uplift modeling
 #' @docType package
 #' @description 
 #' The information package is designed to perform exploratory data analysis and variable screening for binary 
