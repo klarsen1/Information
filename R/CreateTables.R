@@ -87,10 +87,10 @@ CreateTables <- function(data, valid=NULL, y, bins=10, trt=NULL, ncore=NULL){
     if (crossval==TRUE){
       valid$var <- valid[[variables[i]]]
       if (is.character(data[[variables[i]]]) != is.character(valid[[variables[i]]])){
-        stop(paste0("ERROR: Variable type mismatch for ", variables[i], " (one is a character and the other is not.)"))
+        stop(paste0("ERROR: Variable type mismatch for ", variables[i], " across validation and training (not a character in both dataframes)"))
       }
       if (is.factor(data[[variables[i]]]) != is.factor(valid[[variables[i]]])){
-        stop(paste0("ERROR: Variable type mismatch for ", variables[i], " (one is a factor and the other is not.)"))
+        stop(paste0("ERROR: Variable type mismatchfor ", variables[i], " across validation and training dataframes (not a factor in both dataframes)"))
       }
       if (is.character(data[[variables[i]]])==FALSE & is.factor(data[[variables[i]]])==FALSE){
         cuts <- unique(quantile(data[[variables[i]]], probs=c(1:(bins-1)/bins), na.rm=TRUE, type=3))  
