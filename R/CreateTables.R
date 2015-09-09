@@ -7,7 +7,7 @@
 #' @param valid validation dataset (default is NULL)
 #' @param y dependent variable
 #' @param bins number of bins (default is 10)
-#' @param trt binary treatment variable (for net lift modeling). Default is NULL
+#' @param trt binary treatment variable (for net lift modeling -- i.e., NWOE and NIV). Default is NULL (for standard WOE and IV)
 #' @param ncore number of cores used. Default is to use detectcores-1.
 #' 
 #' @import foreach

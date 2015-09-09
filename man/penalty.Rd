@@ -11,7 +11,7 @@ penalty(t, v, d_net_lift)
 
 \item{v}{valdation data (data.frame)}
 
-\item{d_net_lift}{is it a net lift model? (1/0)}
+\item{d_net_lift}{is it a net lift model? (1=yes, 0=no)}
 }
 \description{
 \code{penalty} returns the weighted cross validation penalty.

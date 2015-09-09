@@ -15,7 +15,7 @@ CreateTables(data, valid = NULL, y, bins = 10, trt = NULL, ncore = NULL)
 
 \item{bins}{number of bins (default is 10)}
 
-\item{trt}{binary treatment variable (for net lift modeling). Default is NULL}
+\item{trt}{binary treatment variable (for net lift modeling -- i.e., NWOE and NIV). Default is NULL (for standard WOE and IV)}
 
 \item{ncore}{number of cores used. Default is to use detectcores-1.}
 }

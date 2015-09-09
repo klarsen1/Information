@@ -4,17 +4,36 @@
 #' 
 #' @param t training data (data.frame)
 #' @param v valdation data (data.frame)
-#' @param d_net_lift is it a net lift model? (1/0)
+#' @param d_net_lift is it a net lift model? (1=yes, 0=no)
 #' 
+#' @import plyr
 #' @export penalty
 
 penalty <- function(t, v, d_net_lift){
+  n <- names(t)[1]
+  v$inside_valid <- 1
+  t$inside_train <- 1
   if (nrow(t) != nrow(v)){
-    t$PENALTY <- 0
+    # make v look like t
+    v <- join(t[,c(n, "inside_train")], v, by=n, type="left")
+    v[,sapply(v, is.numeric)] <- numcolwise(function(x) replace(x, is.na(x), 0))(v)
+    # tag record that have validation buckets
+    t <- join(t, v[,c(n, "inside_valid")], type="left")
+    if (nrow(v)==0 | nrow(t)==0){
+      t$PENALTY <- 0
+    } else{
+       if (d_net_lift==0){
+          t$PENALTY <- ave(abs(t$IV_weight)*abs(t$WOE-v$WOE)*t$inside_valid, FUN=cumsum)
+       } else{
+         t$PENALTY <- ave(abs(t$NIV_weight)*abs(t$NWOE-v$NWOE)*t$inside_valid, FUN=cumsum)
+       }
+      t$inside_valid <- NULL
+    }
   } else if (d_net_lift==0){
     t$PENALTY <- ave(abs(t$IV_weight)*abs(t$WOE-v$WOE), FUN=cumsum)
   } else{
     t$PENALTY <- ave(abs(t$NIV_weight)*abs(t$NWOE-v$NWOE), FUN=cumsum)
   }
+  t$inside_train <- NULL
   return(t)  
 }
