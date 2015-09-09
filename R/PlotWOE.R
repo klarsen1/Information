@@ -33,6 +33,6 @@ PlotWOE <- function(information_object, variable, show_values=FALSE){
   if (show_values==FALSE){
      ggplot(data=df, aes(x=xvar, y=yvar)) + geom_bar(stat="identity", position = "identity") + xlab("") + ylab(type) + ggtitle(variable)
   } else{
-    ggplot(data=df, aes(x=xvar, y=yvar)) + geom_bar(stat="identity", position = "identity", fill="gray70") + xlab("") + ylab(type) + ggtitle(variable) + geom_text(aes(label = round(yvar, 2)))
+    ggplot(data=df, aes(x=xvar, y=yvar)) + geom_bar(stat="identity", position = "identity", fill="gray70") + xlab("") + ylab(type) + ggtitle(variable) + geom_text(aes(label = round(yvar, 2)), size=4)
   }
 }
