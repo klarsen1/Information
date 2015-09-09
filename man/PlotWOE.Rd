@@ -4,12 +4,14 @@
 \alias{PlotWOE}
 \title{Plot a WOE vector}
 \usage{
-PlotWOE(information_object, variable)
+PlotWOE(information_object, variable, ShowValues = FALSE)
 }
 \arguments{
 \item{information_object}{object from the information package}
 
 \item{variable}{variable for which we want to see the WOE pattern}
+
+\item{show_values}{do you want to show values on the bar chart? Default is FALSE}
 }
 \description{
 \code{PlotWOE} creates a bar chart of the WOE pattern for a specified variable

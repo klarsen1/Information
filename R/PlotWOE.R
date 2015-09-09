@@ -4,6 +4,7 @@
 #' 
 #' @param information_object object from the information package
 #' @param variable variable for which we want to see the WOE pattern
+#' @param show_values do you want to show values on the bar chart? Default is FALSE
 #' 
 #' @import ggplot2
 #'
@@ -17,7 +18,7 @@
 #' IV <- CreateTables(data=train, y="PURCHASE")
 #' PlotWOE(IV, "N_OPEN_REV_ACTS")
 
-PlotWOE <- function(information_object, variable){
+PlotWOE <- function(information_object, variable, show_values=FALSE){
   df <- information_object[["Tables"]][[variable]]
   orderlist <- df[[variable]]
   df$xvar <- df[[variable]]
@@ -29,5 +30,9 @@ PlotWOE <- function(information_object, variable){
     df$yvar <- df$WOE
   }
   df <- transform(df, xvar=factor(xvar, levels=orderlist))
-  ggplot(data=df, aes(x=xvar, y=yvar)) + geom_bar(stat="identity", position = "identity") + xlab(variable) + ylab(type) + ggtitle(variable)
+  if (show_values==FALSE){
+     ggplot(data=df, aes(x=xvar, y=yvar)) + geom_bar(stat="identity", position = "identity") + xlab("") + ylab(type) + ggtitle(variable)
+  } else{
+    ggplot(data=df, aes(x=xvar, y=yvar)) + geom_bar(stat="identity", position = "identity", fill="gray70") + xlab("") + ylab(type) + ggtitle(variable) + geom_text(aes(label = round(yvar, 2)))
+  }
 }
