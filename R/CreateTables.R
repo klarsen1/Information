@@ -12,7 +12,7 @@
 #' 
 #' @import foreach
 #' @import parallel
-#' @import doMC
+#' @import doParallel
 #'
 #' @export CreateTables
 #' @examples  
@@ -76,7 +76,7 @@ CreateTables <- function(data, valid=NULL, y, bins=10, trt=NULL, ncore=NULL){
   
   if (ncore<1) ncore <- 1
   
-  registerDoMC(ncore)
+  registerDoParallel(ncore)
   
   ### Loop through variables
   loopResult <- foreach(i=1:length(variables), .combine='comb', .multicombine=TRUE,

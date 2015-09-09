@@ -18,8 +18,7 @@ NWOE or WOE tables. It will also rank all variables by their respective NIV/IV v
 For NWOE analysis, you must have a "treatment" and a conrol group, identified by a binary treatment indicator.
 For regular WOE analysis, all you need is a binary response variable (dependent variable).
 
-You can cross validate your IV or NIV values by supplying a validation data.frame. CreateTables() cross
-validated by calculating the penalized IV/NIV values.
+You can cross validate your IV or NIV values by supplying a validation dataframe. This will produce penalized IV/NIV values.
 }
 \examples{
 The only functions you will need to call are CreateTables(), PlotWOE and MultiPlotWOE
@@ -74,6 +73,14 @@ Kim Larsen (kblarsen4 at gmail.com)
 \keyword{NIV,}
 \keyword{NWOE,}
 \keyword{WOE,}
+\keyword{evidence,}
+\keyword{information}
 \keyword{logistc}
-\keyword{regression}
+\keyword{modeling}
+\keyword{of}
+\keyword{regression,}
+\keyword{theory,}
+\keyword{uplift}
+\keyword{weight}
+\keyword{weight-of-evidence,}
 
