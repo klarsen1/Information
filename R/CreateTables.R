@@ -22,26 +22,25 @@
 #' data(train, package="Information")
 #' train <- subset(train, TREATMENT==1)
 #' IV <- CreateTables(data=train, y="PURCHASE")
-#' IV$Summary
-#' IV$Tables$N_OPEN_REV_ACTS
+#' print(head(IV$Summary), row.names=FALSE)
+#' print(IV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 #' 
 #' ##------------------------------------------------------------
 #' ## NWOE analysis, no validation
 #' ##------------------------------------------------------------
 #' data(train, package="Information")
 #' NIV <- CreateTables(data=train, trt=TREATMENT, y="PURCHASE")
-#' NIV$Summary
-#' NIV$Tables$N_OPEN_REV_ACTS
+#' print(head(NIV$Summary), row.names=FALSE)
+#' print(NIV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 #' 
 #' ##------------------------------------------------------------
 #' ## NWOE analysis, validation
 #' ##------------------------------------------------------------
 #' data(train, package="Information")
-#' data(validation, package="Information")
-#' NIV <- CreateTables(data=train, valid=validation, trt=TREATMENT, y="PURCHASE")
-#' NIV$Summary
-#' NIV$Tables$N_OPEN_REV_ACTS
-
+#' data(valid, package="Information")
+#' NIV <- CreateTables(data=train, valid=valid, trt=TREATMENT, y="PURCHASE")
+#' print(head(NIV$Summary), row.names=FALSE)
+#' print(NIV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 
 CreateTables <- function(data, valid=NULL, y, bins=10, trt=NULL, ncore=NULL){
 

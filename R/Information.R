@@ -5,10 +5,12 @@
 #' a binary response variable, Information::CreateTables() will cycle through all variables and create
 #' NWOE or WOE tables. It will also rank all variables by their respective NIV/IV values. 
 #' 
-#' For NWOE analysis, you must have a "treatment" and a conrol group, identified by a binary treatment indicator.
+#' Calculations will be distributed across multiple cores.
+#' 
+#' NWOE analysis is only for uplift models. Thus, for NWOE analysis, you must have a "treatment" and a conrol group identified by a binary treatment indicator.
 #' For regular WOE analysis, all you need is a binary response variable (dependent variable).
 #' 
-#' You can cross validate your IV or NIV values by supplying a validation dataframe. This will produce penalized IV/NIV values.
+#' You can cross validate your IV or NIV values by supplying a validation data.frame. This will produce penalized IV/NIV values.
 #'
 #' @author Kim Larsen (kblarsen4 at gmail.com)
 #' @keywords WOE, NWOE, NIV, logistc regression, information theory, weight of evidence, weight-of-evidence, uplift modeling
@@ -20,7 +22,7 @@
 #'
 #' @name Information
 #' @examples 
-#' The only functions you will need to call are CreateTables(), PlotWOE and MultiPlotWOE 
+#' The only functions you will need to call are CreateTables(), PlotWOE() and MultiPlotWOE() 
 #' CreateTables() creates WOE/NWOE tables (accessed by
 #' Tables$<variable name>) and outputs a data.frame that 
 #' contains IV or NIV for all variables.
@@ -37,8 +39,8 @@
 #' data(train, package="Information")
 #' train <- subset(train, TREATMENT==1)
 #' IV <- CreateTables(data=train, y="PURCHASE")
-#' IV$Summary
-#' IV$Tables$N_OPEN_REV_ACTS
+#' print(head(IV$Summary), row.names=FALSE)
+#' print(IV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 #' 
 #' ##------------------------------------------------------------
 #' ## WOE plots
@@ -54,16 +56,16 @@
 #' ##------------------------------------------------------------
 #' data(train, package="Information")
 #' NIV <- CreateTables(data=train, trt=TREATMENT, y="PURCHASE")
-#' NIV$Summary
-#' NIV$Tables$N_OPEN_REV_ACTS
+#' print(head(NIV$Summary), row.names=FALSE)
+#' print(NIV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 #' 
 #' ##------------------------------------------------------------
 #' ## NWOE analysis, validation
 #' ##------------------------------------------------------------
 #' data(train, package="Information")
-#' data(validation, package="Information")
-#' NIV <- CreateTables(data=train, valid=validation, trt=TREATMENT, y="PURCHASE")
-#' NIV$Summary
-#' NIV$Tables$N_OPEN_REV_ACTS
+#' data(valid, package="Information")
+#' NIV <- CreateTables(data=train, valid=valid, trt=TREATMENT, y="PURCHASE")
+#' print(head(NIV$Summary), row.names=FALSE)
+#' print(NIV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 
 NULL

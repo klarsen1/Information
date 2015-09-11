@@ -1,0 +1,10 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+<!-- README.md is generated from NEWS.Rmd. Please edit that file -->
+
+# Information version 
+First release

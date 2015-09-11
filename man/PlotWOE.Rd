@@ -4,7 +4,7 @@
 \alias{PlotWOE}
 \title{Plot a WOE vector}
 \usage{
-PlotWOE(information_object, variable, ShowValues = FALSE)
+PlotWOE(information_object, variable, show_values = FALSE)
 }
 \arguments{
 \item{information_object}{object from the information package}

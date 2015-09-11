@@ -1,69 +1,71 @@
-# Overview 
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+Overview
+========
 
-Binary classification models are perhaps the most common use-case in predictive analytics. The reason is that many key client actions across a wide range of industries are binary in nature, such as defaulting on a loan, clicking on an ad, or terminating a subscription. 
+Binary classification models are perhaps the most common use-case in predictive analytics. The reason is that many key client actions across a wide range of industries are binary in nature, such as defaulting on a loan, clicking on an ad, or terminating a subscription.
 
-Prior to building a binary classification model, a common step is to perform variable screening and exploratory data analysis. This is the step where we get to know the data and weed out variables that are either ill-conditioned or simply contain no information that will help us predict the action of interest. Note that the purpose of this step should not to be confused with that of multiple-variable selection techniques, such as stepwise regression and lasso, where the variables that go into the final model are selected. Rather, this is a precursory step designed to ensure that the approaches deployed during the final modeling phases are set up for success.
+Prior to building a binary classification model, a common step is to perform variable screening and exploratory data analysis. This is the step where we get to know the data and weed out variables that are either ill-conditioned or simply contain no information that will help us predict the action of interest. Note that the purpose of this step should not to be confused with that of multiple-variable selection techniques, such as stepwise regression, where the variables that go into the final model are selected. Rather, this is a precursory step designed to ensure that the approaches deployed during the final modeling phases are set up for success.
 
-The *weight of evidence* (WOE) and *information value* (IV) provide a great framework for for exploratory analysis and variable screening for binary classifiers. WOE and IV have been used extensively in the credit risk world for several decades, and the underlying theory dates back to the 1950s. However, it is still not widely used outside the credit risk world and it is a somewhat underserved area in R.
+The *weight of evidence* (WOE) and *information value* (IV) provide a great framework for for exploratory analysis and variable screening for binary classifiers. WOE and IV have been used extensively in the credit risk world for several decades, and the underlying theory dates back to the 1950s. However, it is still not widely used in other industries.
 
-WOE and IV enable one to:
+WOE and IV analysis enable one to:
 
-* Consider each variable’s independent contribution to the outcome.
-* Detect linear and non-linear relationships.
-* Rank variables in terms of "univariate" predictive strength.
-* Visualize the correlations between the predictive variables and the binary outcome.   
-* Seamlessly compare the strength of continuous and categorical variables without creating dummy variables.
-* Seamlessly handle missing values without imputation.
-* Assess the predictive power of missing values.
+-   Consider each variable’s independent contribution to the outcome.
+-   Detect linear and non-linear relationships.
+-   Rank variables in terms of "univariate" predictive strength.
+-   Visualize the correlations between the predictive variables and the binary outcome.
+-   Seamlessly compare the strength of continuous and categorical variables without creating dummy variables.
+-   Seamlessly handle missing values without imputation.
+-   Assess the predictive power of missing values.
 
-For details, see the file called information.pdf in the Doc directory.
+The `Information` package is designed to perform WOE and IV analysis for binary classification models as well as uplift models. To maximize speed, aggregations are done in `data.table`, and creation of WOE vectors can be distributed across multiple cores.
 
-# About the Package
+Extensions to Exploratory Analysis for Uplift Models
+====================================================
 
-THIS IS A BETA VERSION.
-
-The information package is designed to perform exploratory data analysis and variable screening for binary classification models using WOE and IV. Aggregations are done in data.table, and creation of WOE vectors can be distributed across multiple cores. Thus the package is fairly fast.
-
-The package can be downloaded from https://github.com/klarsen1/Information.
-
-There are a number of great R packages available that support WOE and IV (see a partial list below), but they are either primarily designed to build WOE-based models – e.g., naive Bayes classifiers – or they do not support the uplift use-case. Hence, despite some redundancy, we saw the need to create the `Information` package.
-
-### Date Used in Examples
-The data is from an historical marketing campaign from the insurance industry and is automatically downloaded when you install the `Information` package. The data is stored in two `.RDA` files, one for the training dataset and one for the validation dataset. Each file has 68 predictive variables and 10k records.
-
-The datasets contain two key indicators: 
-
-* `PURCHASE` This variable equals 1 if the client accepted the offer, and 0 otherwise
-* `TREATMENT` This variable equals 1 if the client was in the test group (received the offer), and 0 otherwise.
-  
-### Key Functions
-
-* `CreateTables()` creates WOE tables and IVs for all variables in the input dataframe.
-* `PlotWOE()` plots the WOE vector for one variable.
-* `MultiPlotWOE()` plots more than one WOE vector on one page for comparisons.
-
-# Extensions to Exploratory Analysis for Uplift Models
 Consider a direct marketing program where a *test group* received an offer of some sort, and the *control group* did not receive anything. The test and control groups are based on a random split. The lift of the campaign is defined as the difference in success rates between the test and control groups. In other words, the program can only be deemed successful if the offer outperforms the "do nothing" (a.k.a baseline) scenario.
 
-The purpose of uplift models is to estimate the difference between the test and control groups, and then using the resulting model to target *persuadables* – i.e., potential or existing clients that are on the fence and need some sort of offer or contract to sign up or buy a product. Thus, when preparing to build an uplift model, we cannot only focus on the log odds of *Y*=1 , we need to analyze the *log odds ratio* of *Y*=1 for the test group versus the control group. This can be handled by the *net weight of evidence* (NWOE) and the *net information value* (NIV).
+The purpose of uplift models is to estimate the difference between the test and control groups, and then using the resulting model to target *persuadables* – i.e., potential or existing clients that are on the fence and need some sort of offer or contract to sign up or buy a product. Thus, when preparing to build an uplift model, we cannot only focus on the log odds of \(Y=1\) (where \(Y\) is some binary outcome), we need to analyze the *log odds ratio* of \(Y=1\) for the test group versus the control group. This can be handled by the *net weight of evidence* (NWOE) and the *net information value* (NIV).
 
-For details, see the file called information.pdf in the Doc directory.
- 
-# Installation
-devtools::install_github("klarsen1/Information", "klarsen1")
+Example
+=======
 
-# References
+``` r
+library(Information)
+library(gridExtra)
 
-[1] Hastie, Trevor , Tibshirani, Robert and Friedman, Jerome. (1986), Elements of Statistical Learning, Second Edition, Springer, 2009.
+# Basic WOE and IV -- no external cross validation
+data(train, package="Information")
+train <- subset(train, TREATMENT==1)
+IV <- CreateTables(data=train, y="PURCHASE")
 
-[2] Kullback S., Information Theory and Statistics, John Wiley & Sons, 1959.
+# Show the first records of the IV summary table
+print(head(IV$Summary), row.names=F)
+```
 
-# Other Packages that support WOE/IV
+    ##                     Variable        IV
+    ##              N_OPEN_REV_ACTS 1.0107695
+    ##         TOT_HI_CRDT_CRDT_LMT 0.9345902
+    ##         RATIO_BAL_TO_HI_CRDT 0.8232539
+    ##  D_NA_M_SNC_MST_RCNT_ACT_OPN 0.6355466
+    ##   M_SNC_OLDST_RETAIL_ACT_OPN 0.5573438
+    ##       M_SNC_MST_RCNT_ACT_OPN 0.5026402
 
-woe package, https://cran.r-project.org/web/packages/woe/woe.pdf.
+``` r
+# Show the WOE table for the variable called N_OPEN_REV_ACTS
+print(IV$Tables$N_OPEN_REV_ACTS, row.names=F)
+```
 
-riv package (not to be confused with the riv packake in CRAN), http://www.r-bloggers.com/r-credit-scoring-woe-information-value-in-woe-package/.
+    ##  N_OPEN_REV_ACTS    N    Percent        WOE        IV
+    ##            [0,0] 1469 0.29545455 -2.0465968 0.6401443
+    ##            [1,2]  958 0.19267900 -0.5900120 0.6958705
+    ##            [3,3]  310 0.06234916  0.2033085 0.6986029
+    ##            [4,5]  583 0.11725664  0.4419768 0.7244762
+    ##            [6,8]  632 0.12711183  0.6148243 0.7810611
+    ##           [9,11]  453 0.09111022  0.8815772 0.8692672
+    ##          [12,48]  567 0.11403862  0.9883818 1.0107695
 
-klaR package, https://cran.r-project.org/web/packages/klaR/klaR.pdf.
+How to install
+==============
 
-
+devtools::install\_github("klarsen1/Information", "klarsen1")
