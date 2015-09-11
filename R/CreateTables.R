@@ -1,3 +1,11 @@
+#' Helper function for foreach when returning lists with multiple objects
+#' \code{comb} Helper function for foreach when returning lists with multiple objects 
+#' @export comb
+comb <- function(x, ...) {
+  lapply(seq_along(x),
+         function(i) c(x[[i]], lapply(list(...), function(y) y[[i]])))
+}
+
 #' Create WOE/NWOE tables and rank variables by IV/NIV
 #' 
 #' \code{CreateTables} returns WOE or NWOE tables (as data.frames), and a data.frame with IV or NIV values for all
@@ -43,12 +51,9 @@
 #' print(NIV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 
 CreateTables <- function(data, valid=NULL, y, bins=10, trt=NULL, ncore=NULL){
-
-  comb <- function(x, ...) {
-    lapply(seq_along(x),
-           function(i) c(x[[i]], lapply(list(...), function(y) y[[i]])))
-  }
   
+  i <- NULL
+
   ### If no validation dataset, no cross validation
   crossval <- TRUE
   if (is.null(valid)){

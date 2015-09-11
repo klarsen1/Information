@@ -12,13 +12,14 @@
 #' @export MultiPlotWOE
 #' @examples  
 #' ##------------------------------------------------------------
-#' ## WOE plots. First plotting two variables, and then all
-#' variables with IV>0.1
+#' ## WOE plots
 #' ##------------------------------------------------------------
 #' data(train, package="Information")
 #' train <- subset(train, TREATMENT==1)
 #' IV <- CreateTables(data=train, y="PURCHASE")
+#' # Plotting two variables
 #' MultiPlotWOE(IV, c("N_OPEN_REV_ACTS", "AGE"))
+#' # Plotting all variables with IV>0.1
 #' MultiPlotWOE(IV, subset(IV$Summary, IV>0.1)$Variable)
 
 MultiPlotWOE <- function(information_object, variables, same_scale=FALSE) {

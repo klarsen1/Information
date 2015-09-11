@@ -19,20 +19,20 @@
 #' The information package is designed to perform exploratory data analysis and variable screening for binary 
 #' classification models using WOE and IV. The package also supports exploratory analysis and variable screening
 #' for uplift models (NWOE and NIV).
-#'
-#' @name Information
-#' @examples 
-#' The only functions you will need to call are CreateTables(), PlotWOE() and MultiPlotWOE() 
-#' CreateTables() creates WOE/NWOE tables (accessed by
-#' Tables$<variable name>) and outputs a data.frame that 
-#' contains IV or NIV for all variables.
+#' 
+#' Note that the only functions you will need to call are CreateTables(), PlotWOE() and MultiPlotWOE() 
+#' CreateTables() creates WOE/NWOE tables (accessed by Tables$<variable name>)
+#' and outputs a data.frame that contains IV or NIV for all variables.
 #' IV and NIV values are found in the Summary data.frame. 
 #' 
 #' PlotWOE() plots the WOE vector for a sigle variable
 #' 
 #' MultiPlotWOE() plots WOE vectors for multiple variables on a single page. Multiple pages will be created
 #' if needed (9 plots per page). 
+
 #'
+#' @name Information
+#' @examples 
 #' ##------------------------------------------------------------
 #' ## WOE analysis, no validation
 #' ##------------------------------------------------------------
@@ -60,7 +60,7 @@
 #' print(NIV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 #' 
 #' ##------------------------------------------------------------
-#' ## NWOE analysis, validation
+#' ## NWOE analysis with cross validation
 #' ##------------------------------------------------------------
 #' data(train, package="Information")
 #' data(valid, package="Information")

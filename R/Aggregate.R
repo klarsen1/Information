@@ -13,6 +13,9 @@
 #' @export Aggregate
 
 Aggregate <- function(data, x, y, breaks, trt){  
+  
+  Group <- n <- y_1 <- y_0 <- t_1 <- t_0 <- y_1_t <- y_0_t <- y_1_c <- y_0_c <- NULL
+
   data$y_1 <- data[[y]]
   data$y_0 <- ifelse(data$y_1==1, 0, 1)  
   data$n <- 1

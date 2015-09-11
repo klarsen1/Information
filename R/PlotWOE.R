@@ -19,6 +19,9 @@
 #' PlotWOE(IV, "N_OPEN_REV_ACTS")
 
 PlotWOE <- function(information_object, variable, show_values=FALSE){
+  
+  xvar <- yvar <- NULL
+  
   df <- information_object[["Tables"]][[variable]]
   orderlist <- df[[variable]]
   df$xvar <- df[[variable]]
