@@ -16,11 +16,11 @@
 #' ##------------------------------------------------------------
 #' data(train, package="Information")
 #' train <- subset(train, TREATMENT==1)
-#' IV <- CreateTables(data=train, y="PURCHASE")
+#' IV <- Information::CreateTables(data=train, y="PURCHASE", ncore=2)
 #' # Plotting two variables
-#' MultiPlotWOE(IV, c("N_OPEN_REV_ACTS", "AGE"))
+#' Information::MultiPlotWOE(IV, c("N_OPEN_REV_ACTS", "AGE"))
 #' # Plotting all variables with IV>0.1
-#' MultiPlotWOE(IV, subset(IV$Summary, IV>0.1)$Variable)
+#' Information::MultiPlotWOE(IV, subset(IV$Summary, IV>0.1)$Variable)
 
 MultiPlotWOE <- function(information_object, variables, same_scale=FALSE) {
   

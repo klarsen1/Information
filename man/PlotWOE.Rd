@@ -22,7 +22,7 @@ PlotWOE(information_object, variable, show_values = FALSE)
 ##------------------------------------------------------------
 data(train, package="Information")
 train <- subset(train, TREATMENT==1)
-IV <- CreateTables(data=train, y="PURCHASE")
-PlotWOE(IV, "N_OPEN_REV_ACTS")
+IV <- CreateInfoTables(data=train, y="PURCHASE")
+Information::PlotWOE(IV, "N_OPEN_REV_ACTS")
 }
 

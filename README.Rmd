@@ -39,7 +39,7 @@ library(gridExtra)
 # Basic WOE and IV -- no external cross validation
 data(train, package="Information")
 train <- subset(train, TREATMENT==1)
-IV <- CreateTables(data=train, y="PURCHASE")
+IV <- CreateInfoTables(data=train, y="PURCHASE")
 
 # Show the first records of the IV summary table
 print(head(IV$Summary), row.names=F)

@@ -8,6 +8,6 @@ Maintainer: Kim Larsen <kblarsen4@gmail.com>
 Description: The information package is designed to perform exploratory data analysis and variable screening for binary classification models using weight-of-evidence (WOE) and information value (IV). To make the package as efficient as possible, aggregations are done in data.table and creation of WOE vectors can be distributed across multiple cores. The package also supports exploration for uplift models (NWOE and NIV).
 Depends: R (>= 3.1.2)
 License: GPL (>=3)
-Imports: data.table, doParallel, parallel, foreach, ggplot2, grid, plyr
+Imports: data.table, iterators, doParallel, parallel, foreach, ggplot2, grid, plyr
 LazyData: true
    

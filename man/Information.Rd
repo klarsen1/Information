@@ -10,8 +10,8 @@ The information package is designed to perform exploratory data analysis and var
 classification models using WOE and IV. The package also supports exploratory analysis and variable screening
 for uplift models (NWOE and NIV).
 
-Note that the only functions you will need to call are CreateTables(), PlotWOE() and MultiPlotWOE()
-CreateTables() creates WOE/NWOE tables (accessed by Tables$<variable name>)
+Note that the only functions you will need to call are CreateInfoTables(), PlotWOE() and MultiPlotWOE()
+CreateInfoTables() creates WOE/NWOE tables (accessed by Tables$<variable name>)
 and outputs a data.frame that contains IV or NIV for all variables.
 IV and NIV values are found in the Summary data.frame.
 
@@ -22,7 +22,7 @@ if needed (9 plots per page).
 }
 \details{
 Given a data.frame with a set of predictive variables and
-a binary response variable, Information::CreateTables() will cycle through all variables and create
+a binary response variable, Information::CreateInfoTables() will cycle through all variables and create
 NWOE or WOE tables. It will also rank all variables by their respective NIV/IV values.
 
 Calculations will be distributed across multiple cores.
@@ -36,9 +36,10 @@ You can cross validate your IV or NIV values by supplying a validation data.fram
 ##------------------------------------------------------------
 ## WOE analysis, no validation
 ##------------------------------------------------------------
+library(Informatio)
 data(train, package="Information")
 train <- subset(train, TREATMENT==1)
-IV <- CreateTables(data=train, y="PURCHASE")
+IV <- Information::CreateInfoTables(data=train, y="PURCHASE", ncore=2)
 print(head(IV$Summary), row.names=FALSE)
 print(IV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 
@@ -47,7 +48,7 @@ print(IV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 ##------------------------------------------------------------
 data(train, package="Information")
 train <- subset(train, TREATMENT==1)
-IV <- CreateTables(data=train, y="PURCHASE")
+IV <- Information::CreateInfoTables(data=train, y="PURCHASE", ncore=2)
 MultiPlotWOE(IV, IV$Summary$Variable[1:18])
 PlotWOE(IV, "N_OPEN_REV_ACTS")
 
@@ -55,7 +56,7 @@ PlotWOE(IV, "N_OPEN_REV_ACTS")
 ## NWOE analysis, no validation
 ##------------------------------------------------------------
 data(train, package="Information")
-NIV <- CreateTables(data=train, trt=TREATMENT, y="PURCHASE")
+NIV <- Information::CreateInfoTables(data=train, trt="TREATMENT", y="PURCHASE", ncore=2)
 print(head(NIV$Summary), row.names=FALSE)
 print(NIV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 
@@ -64,7 +65,7 @@ print(NIV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 ##------------------------------------------------------------
 data(train, package="Information")
 data(valid, package="Information")
-NIV <- CreateTables(data=train, valid=valid, trt=TREATMENT, y="PURCHASE")
+NIV <- Information::CreateInfoTables(data=train, valid=valid, trt="TREATMENT", y="PURCHASE", ncore=2)
 print(head(NIV$Summary), row.names=FALSE)
 print(NIV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 }
