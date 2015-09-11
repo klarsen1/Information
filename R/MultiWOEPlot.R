@@ -14,9 +14,10 @@
 #' ##------------------------------------------------------------
 #' ## WOE plots
 #' ##------------------------------------------------------------
+#' library(Information)
 #' data(train, package="Information")
 #' train <- subset(train, TREATMENT==1)
-#' IV <- Information::CreateTables(data=train, y="PURCHASE", ncore=2)
+#' IV <- Information::CreateInfoTables(data=train, y="PURCHASE", ncore=2)
 #' # Plotting two variables
 #' Information::MultiPlotWOE(IV, c("N_OPEN_REV_ACTS", "AGE"))
 #' # Plotting all variables with IV>0.1

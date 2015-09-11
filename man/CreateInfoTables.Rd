@@ -48,7 +48,10 @@ print(NIV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 ##------------------------------------------------------------
 data(train, package="Information")
 data(valid, package="Information")
-NIV <- Information::CreateInfoTables(data=train, valid=valid, trt="TREATMENT", y="PURCHASE", ncore=2)
+NIV <- Information::CreateInfoTables(data=train,
+                                     valid=valid,
+                                     trt="TREATMENT",
+                                     y="PURCHASE", ncore=2)
 print(head(NIV$Summary), row.names=FALSE)
 print(NIV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 }

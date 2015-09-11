@@ -13,9 +13,10 @@
 #' ##------------------------------------------------------------
 #' ## WOE plot, no validation
 #' ##------------------------------------------------------------
+#' library(Information)
 #' data(train, package="Information")
 #' train <- subset(train, TREATMENT==1)
-#' IV <- CreateInfoTables(data=train, y="PURCHASE")
+#' IV <- CreateInfoTables(data=train, y="PURCHASE", ncore=2)
 #' Information::PlotWOE(IV, "N_OPEN_REV_ACTS")
 
 PlotWOE <- function(information_object, variable, show_values=FALSE){
