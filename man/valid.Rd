@@ -9,12 +9,13 @@
   \item TREATMENT: equals 1 if the person received the marketing offer, and 0 if the person was in the control group
   \item PURCHASE: equals 1 if the person accepted the offer, and 0 otherwise
   \item UNIQUE_ID: unique identifier
+  \item Predictive variables include demographic, geographic and credit bureau data
 }}
 \usage{
 valid
 }
 \description{
-The data is from an historical marketing campaign.
+The data is from a historical marketing campaign.
 It contains 68 predictive variables and 5,060 records. In addition, it contains a
 treatment indicator and a purchase indicator.
 }

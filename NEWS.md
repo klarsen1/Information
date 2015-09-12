@@ -3,9 +3,7 @@ Package: Information
 
 Version: 0.0.0.9000
 
-BUILD: xxxx
-
 Information version 0.0.0.9000
 ==============================
 
-First release of the Information package
+First release of the Information package.
