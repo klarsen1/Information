@@ -30,6 +30,10 @@ CheckInputs <- function(train, valid, trt, y){
   }  
   
   if (crossval==TRUE){
+    if (any(sort(names(train))==sort(names(valid)))==FALSE){
+      stop("ERROR: Validation and training datasets must have the same variables")
+    }
+    
     if (class(valid) != "data.frame"){
       stop("ERROR: Validation dataset has to be of type data.frame")
     }  

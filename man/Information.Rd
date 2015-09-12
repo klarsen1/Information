@@ -4,7 +4,7 @@
 \name{Information}
 \alias{Information}
 \alias{Information-package}
-\title{WOE/NWOE Analysis}
+\title{Data exploration with information theory (WOE and NWOE analysis)}
 \description{
 The information package is designed to perform exploratory data analysis and variable screening for binary
 classification models using WOE and IV. The package also supports exploratory analysis and variable screening
@@ -30,7 +30,7 @@ Calculations will be distributed across multiple cores.
 NWOE analysis is only for uplift models. Thus, for NWOE analysis, you must have a "treatment" and a conrol group identified by a binary treatment indicator.
 For regular WOE analysis, all you need is a binary response variable (dependent variable).
 
-You can cross validate your IV or NIV values by supplying a validation data.frame. This will produce penalized IV/NIV values.
+You can cross validate your IV or NIV values by supplying a validation dataset. This will produce penalized IV/NIV values.
 }
 \examples{
 ##------------------------------------------------------------

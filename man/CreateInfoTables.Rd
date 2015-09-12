@@ -10,7 +10,7 @@ CreateInfoTables(data, valid = NULL, y, bins = 10, trt = NULL,
 \arguments{
 \item{data}{input dataset for analysis (this is typically your training dataset)}
 
-\item{valid}{validation dataset (default is NULL)}
+\item{valid}{validation dataset (default is NULL). Must have the same variables as the training dataset}
 
 \item{y}{dependent variable}
 

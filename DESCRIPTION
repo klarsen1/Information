@@ -1,6 +1,6 @@
 Package: Information
 Type: Package
-Title: Data exploration with information theory (WOE and NWOE Analysis)
+Title: Data exploration with information theory (WOE and NWOE analysis)
 Version: 0.0.0.9000
 Date: 2015-09-12
 Authors@R: person("Larsen", "Kim", email = "kblarsen4@gmail.com", role = c("aut", "cre"))
@@ -11,4 +11,4 @@ License: GPL (>=3)
 Imports: data.table, iterators, doParallel, parallel, foreach, ggplot2, grid, plyr
 LazyData: true
 VignetteBuilder: knitr
-Suggests: knitr
+Suggests: knitr, reshape2, ClustOfVar

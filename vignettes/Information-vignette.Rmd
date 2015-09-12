@@ -7,11 +7,10 @@ vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\SweaveUTF8
 ---
 
-# Data Exploration with Weight of Evidence and Information Value with the Information Package
-
-## Introduction
+# Introduction
 
 Binary classification models are perhaps the most common use-case in predictive analytics. The reason is that many key client actions across a wide range of industries are binary in nature, such as defaulting on a loan, clicking on an ad, or terminating a subscription. 
 
@@ -31,8 +30,7 @@ WOE and IV enable one to:
 
 In this paper we will provide a brief description of WOE and IV as well as the `Information` R package, which provides an easy way to perform variable screening and exploratory analysis with WOE and IV for traditional binary classifiers as well as uplift models.  
 
-## What Are WOE and IV?
-### Background
+# Information Theory
 
 Weight of evidence (WOE) and information value are closely related to
 concepts from *information theory* where one of the goals is to
@@ -65,7 +63,7 @@ only the two marginal distributions \\( p(X) \\)  and \\( p(Y) \\).
 
 Information value (IV), which we will define below, is quite closely connected to mutual information (MI), and both are intended to do the same thing: summarize how much knowing the value of \\( X \\) in a given trial helps you predict the value of \\( Y \\) for the same trial.
 
-### Setup
+# Defining WOE and IV
 Let's say that we have a binary dependent variable \\( Y \\) and a set of predictive variables \\( X_1, \ldots, X_p \\). As mentioned above, \\( Y \\) can capture a wide range of outcomes, such as defaulting on a loan, clicking on an ad, or terminating a subscription. 
 
 WOE and IV play two distinct roles when analyzing data:
@@ -73,24 +71,24 @@ WOE and IV play two distinct roles when analyzing data:
 * WOE *describes the relationship* between a predictive variable and a binary target variable.
 * IV *measures the strength* of that relationship.  
 
-### The Weight of Evidence
+## The Weight of Evidence
 
 The WOE/IV framework is based on the following relationship:
  
 $$ \log \frac{P(Y=1| X_j)}{P(Y=0 | X_j)} = \underbrace{\log \frac{P(Y=1)}{P(Y=0)}}_{\text{sample log-odds}} + \underbrace{\log \frac{f(X_j | Y=1)}{f(X_j | Y=0)}}_{\text{WOE}}, \nonumber $$
- 
+
 where \\( f(X_j | Y ) \\) denotes the conditional probability density function (or a discrete probability distribution if \\( X_j \\) is categorical). 
 
 This relationship says that the conditional logit of \\( P(Y=1 \\), given \\(X_j \\), can be written as the overall log-odds (i.e., the “intercept”) plus the *log-density ratio* – also known as the *weight of evidence*. 
 
 Note that the weight of evidence and the conditional log odds of \\( Y=1 \\) are perfectly correlated since the “intercept” is constant. Hence, the greater the value of WOE, the higher the chance of observing \\(Y=1\\). In fact, when WOE is positive the chance of of observing \\(Y=1\\) is above average (for the sample), and vice versa when WOE is negative. When WOE equals 0 the odds are simply equal to the sample average. 
 
-### Ties to Naive Bayes and Logistic Regression
+## Ties to Naive Bayes and Logistic Regression
 Notice that the left-hand-side of the equation above – i.e., the conditional log odds – is exactly what we are trying to predict in a *logistic regression* model. Hence, when building a logistic regression model – which is perhaps the most widely used technique for building binary classifiers – we are actually trying to estimate the weight of evidence. 
 
 Last, but not least, the WOE framework has ties to the well-known naive Bayes classifier, given by (see [1]):
 
-$$ \log \frac{P(Y=1| X_1, \ldots, X_p)}{P(Y=0 | X_1, \ldots, X_p)} = \log \frac{P(Y=1)}{P(Y=0)} + \sum_{j=1}^p \log \frac{f(X_j | Y=1)}{f(X_j | Y=0)}. \nonumber. $$
+$$ \log \frac{P(Y=1| X_1, \ldots, X_p)}{P(Y=0 | X_1, \ldots, X_p)} = \log \frac{P(Y=1)}{P(Y=0)} + \sum_{j=1}^p \log \frac{f(X_j | Y=1)}{f(X_j | Y=0)}. \nonumber $$
  
 The naive Bayes model essentially says that the conditional log odds is equal to the sum of the individual weight of evidence vectors. The word "naive" comes from the fact that this model relies on the assumption that all predictors are conditionally independent given \\(  Y \\), which is a highly optimistic assumption.  
 
@@ -100,14 +98,14 @@ $$ \log \frac{P(Y=1| X_1, \ldots, X_p)}{P(Y=0 | X_1, \ldots, X_p)} = \log \frac{
 
 thus partly relaxing the assumption that all predictors in the model are independent. It should be noted that the underlying WOE vectors are still estimated univariately and that the coefficients merely function as scalars. For a more general model, GAM is a great choice (see [5]).  
 
-#### Measuring Univariate Variable Strength with the Information Value
+## The Information Value
 We can leverage WOE to measure the predictive strength of \\(x_j\\) – i.e., how well it helps us separate cases when \\(Y=1\) from cases when \\(Y=0\\). This is done through the *information value* (IV) which is defined like this:
  
 $$ \text{IV}_j = \int \log \frac{f(X_j | Y=1)}{f(X_j | Y=0)} \, (f(X_j | Y=1) - f(X_j | Y=0)) \, dx. \nonumber $$
 
 Note that the IV is essentially a weighted "sum" of all the individual WOE values where the weights incorporate the *absolute difference* between the numerator and the denominator (WOE captures the relative difference). Generally, if \\(\text{IV} < 0.05 \\) the variable has very little predictive power and will not add any meaningful predictive power to your model.
 
-#### Estimating WOE
+## Estimating WOE
 The most common approach to estimating the conditional densities needed to calculate WOE is to bin \\(X_j \\) and then use a histogram-type estimate.
  
 Here is how it works: create a \\(k \times 2 \\) table where \\(k \\) is the number of bins, and the cells within the two columns count the number of records where \\(Y=1\\) and \\(Y=0\\), respectively. The bins are typically selected such that the bins are roughly evenly sized with respect to the number of records in each bin (if possible). The conditional densities are then obtained by calculating the “column percentages” from this table. The typical number of bins used is 10-20. If \\(X_j\\) is categorical, no binning is needed and the histogram estimator can be used directly. Moreover, missing values are treated as a separate bin and thus handled seamlessly.
@@ -121,7 +119,7 @@ which means that the IV for variable \\( X_j \\) can be calculated as
 
 $$\text{IV}_j =  \sum_{i=1}^k (P(X_j \in B_i | Y=1) - P(X_j \in B_i | Y=0)) \times \text{WOE}_{ij}. \nonumber $$
 
-#### Extensions to Exploratory Analysis for Uplift Models
+# Extensions to Exploratory Analysis for Uplift Models
 Consider a direct marketing program where a *test group* received an offer of some sort and the *control group* did not receive anything. The test and control groups are based on a random split. The lift of the campaign is defined as the difference in success rates between the test and control groups. In other words, the program can only be deemed successful if the offer outperforms the "do nothing" (a.k.a baseline) scenario.
 
 The purpose of uplift models is to estimate the difference between the test and control groups and then using the resulting model to target *persuadables* – i.e., potential or existing clients that are on the fence and need some sort of offer to buy a product. Thus, when preparing to build an uplift model, we cannot only focus on the log odds of \\( Y=1 \\), we also need to consider the *log odds ratio* of \\( Y=1 \\) for the test group versus the control group. This leads to the *net weight of evidence* (NWOE) and the *net information value* (NIV). (Actual uplift modeling techniques are beyond the scope of this paper; we will stick to model exploration and variable screening.)
@@ -140,14 +138,14 @@ $$ 10 \times \int \left( f(X_j|Y=1)_{t}f(X_j|Y=0)_{c} - f(X_j|Y=1)_{c}f(X_j|Y=0)
 
 where multiplication of 10 is simply used to make NIV look more like IV. Note that NWOE and NIV work just like IV and WOE, just from an uplift perspective. NIV measures  the strength of a given variable while NWOE describes the pattern of the relationship. Specifically, the higher the value of NIV, the better the given variable is at separating *self-selectors* – i.e., people who are self-motivated to buy – and *persuadables* that need to be motivated.
 
-## The Information R Package 
+# The Information R Package 
 The information package is designed to perform exploratory data analysis and variable screening for binary classification models using WOE and IV. To make the package as efficient as possible aggregations are done in data.table and creation of WOE vectors can be distributed across multiple cores.
 
 The package can be downloaded from https://github.com/klarsen1/Information.
 
 There are a number of R packages available that support WOE and IV (see a partial list below), but they are either primarily designed to build WOE-based models – e.g., naive Bayes classifiers – or they do not support the uplift use-case.
 
-### Date Used in Examples
+## Date Used in Examples
 The data is from an historical marketing campaign from the insurance industry and is automatically downloaded when you install the `Information` package. The data is stored in two `.RDA` files, one for the training dataset and one for the validation dataset. Each file has 68 predictive variables and 10k records.
 
 The datasets contain two key indicators: 
@@ -155,7 +153,7 @@ The datasets contain two key indicators:
 * `PURCHASE` This variable equals 1 if the client accepted the offer, and 0 otherwise
 * `TREATMENT` This variable equals 1 if the client was in the test group (received the offer), and 0 otherwise.
   
-### Key Functions
+## Key Functions
 
 * `CreateInfoTables()` creates WOE tables and IVs for all variables in the input dataframe.
 * `PlotWOE()` plots the WOE vector for one variable.
@@ -165,7 +163,7 @@ The same functions work for NWOE and NIV.
 
 The examples below show how to call these functions
 
-### External Cross Validation
+## External Cross Validation
 The information package supports external cross validation to check that the WOE and NWOE vectors are stable. 
 
 Let's assume that we have a training and a validation dataset, and we calculate WOE for both datasets using the same bin cutoffs. The cross validation penalty for bin \\( B_i \\) is given by
@@ -182,9 +180,9 @@ $$ \text{NIV} = \text{IV} - \text{total CV penalty} .\nonumber $$
 
 The same approach can be applied to NIV for the uplift use-case.
 
-### Example for a Traditional Binary Classification Problem
+## Example for a Traditional Binary Classification Problem
 
-#### Ranking All Variables Using Adjusted IV
+### Ranking All Variables Using Adjusted IV
 
 ```{r, echo=TRUE, results='asis'}
 library(Information)
@@ -199,10 +197,12 @@ data(valid, package="Information")
 train <- subset(train, TREATMENT==1)
 valid <- subset(valid, TREATMENT==1)
 
-### Ranking variables using penalized IV  
+### Ranking variables using penalized IV. Using ncore=2 because more than 2 is no allowed by CRAN in examples  
+### For real applications, leave ncore is NULL to get the default which is: number of cores - 1
 IV <- CreateInfoTables(data=train, 
                    valid=valid, 
-                   y="PURCHASE")
+                   y="PURCHASE",
+                   ncore=2)
                    
 knitr::kable(head(IV$Summary))
 
@@ -210,7 +210,7 @@ knitr::kable(head(IV$Summary))
 names <- names(IV$Tables)
 ```
 
-#### Analyzing WOE Patterns
+### Analyzing WOE Patterns
 
 The `IV$Tables` object returned by `Information` is simply a list of `dataframes` that contains the WOE tables for all variables in the input dataset. Note that the `penalty` and `IV` columns are cumulative.
 
@@ -222,7 +222,7 @@ The table shows that the odds of `PURCHASE=1` increases as `N_OPEN_REV_ACTS` inc
 
 Note that the `Information` package attempts to create evenly-sized bins in terms of the number of subjects in each group. However, this is not always possible due to ties in the data, as with `N_OPEN_REV_ACTS` which has ties at 0. If the variable under consideration is categorical, its distinct categories will show up as rows in the WOE table. Moreover, if the variable has missing values, the WOE table will contain a separate "NA" row which can be used to gauge the impact of missing values. Thus, the framework seamlessly handles missing values and categorical variables without any dummy-coding or imputation .
 
-##### Plotting WOE Patterns
+#### Plotting WOE Patterns
  
 We can also plot this pattern for better visualization:
 
@@ -242,16 +242,17 @@ We can also do a multiplot to compare WOE patterns. Here we plot the first nine 
 MultiPlotWOE(IV, IV$Summary$Variable[1:9])
 ```
 
-#### Omitting Cross Validation
+### Omitting Cross Validation
 
 To run IVs without external cross validation, simply omit the validation dataset:
 
 ```{r, echo=TRUE}
 IV <- CreateInfoTables(data=train, 
-                   y="PURCHASE")
+                   y="PURCHASE",
+                   ncore=2)
 ```
 
-#### Changing the Number of Bins
+### Changing the Number of Bins
 
 The default number of bins is 10 but we can choose a different number if we desire more granularity. Note that the IV formula is fairly invariant to the number of bins. Also, note that the bins are selected such that the bins are evenly sized, to the extent that it is possible (depending on the number of ties in the data). 
 
@@ -259,11 +260,12 @@ The default number of bins is 10 but we can choose a different number if we desi
 IV <- CreateInfoTables(data=train, 
                    valid=valid, 
                    y="PURCHASE", 
-                   bins=20)
+                   bins=20,
+                   ncore=2)
 knitr::kable(IV$Tables$N_OPEN_REV_ACTS)
 ```
 
-### Uplift Example
+## Uplift Example
 For an uplift model we have to include both the test group and the control group in our dataset:
 
 ```{r} 
@@ -277,7 +279,8 @@ When calling the `CreateInfoTables` function, all we have to do is specify the v
 NIV <- CreateInfoTables(data=train, 
                   valid=valid, 
                   y="PURCHASE", 
-                  trt="TREATMENT")
+                  trt="TREATMENT", 
+                  ncore=2)
                   
 knitr::kable(head(NIV$Summary))
 ```
@@ -286,7 +289,7 @@ Note that we cannot compare the scales of NIV and IV. Moreover, there is no rule
 
 Interestingly, `N_OPEN_REV_ACTS` is also the most predictive variable from an uplift perspective. However, the NWOE pattern is quite different from the WOE pattern and suggests a u-shaped pattern. This illustrates how the story can be very different when modeling the incremental effect as opposed to simply building a model to estimate the chance of \\( Y=1 \\) following a treatment. 
 
-### Combining IV Analysis With Variable Clustering
+## Combining IV Analysis With Variable Clustering
 Variable clustering divides a set of numeric variables into mutually exclusive clusters.
 The algorithm attempts to generate clusters such that 
 
@@ -332,7 +335,7 @@ Here are the first rows from the resulting variable ranking table:
 knitr::kable(head(selected_members))
 ```
 
-## Summary
+# Summary
 
 * The purpose of exploratory analysis and variable screening is to get to know the data and assess "univariate" predictive strength, *before* we deploy more sophisticated variable selection approaches.
 
@@ -342,7 +345,7 @@ knitr::kable(head(selected_members))
 
 * The information package is specifically written to perform this type of analysis using parallel processing. It also supports exploratory analysis for uplift models, a growing area within marketing analytics. The information package is not designed to transfer data into WOE vectors for Naive Bayes models, although this feature could be added later.
 
-## References
+# References
 
 [1] Hastie, Trevor , Tibshirani, Robert and Friedman, Jerome. (1986), Elements of Statistical Learning, Second Edition, Springer, 2009.
 
@@ -356,7 +359,7 @@ Communication. Univ of Illinois Press, 1949.
 
 [5] GAM: the Predictive Modeling Silver Bullet, ([via](http://multithreaded.stitchfix.com/blog/2015/07/30/gam/))
 
-### Other Packages that support WOE/IV
+# Other Packages that support WOE/IV
 
 woe package, ([link](https://cran.r-project.org/web/packages/woe/woe.pdf))
 

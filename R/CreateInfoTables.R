@@ -4,7 +4,7 @@
 #' predictive variables. 
 #' 
 #' @param data input dataset for analysis (this is typically your training dataset)
-#' @param valid validation dataset (default is NULL)
+#' @param valid validation dataset (default is NULL). Must have the same variables as the training dataset
 #' @param y dependent variable
 #' @param bins number of bins (default is 10)
 #' @param trt binary treatment variable (for net lift modeling -- i.e., NWOE and NIV). Default is NULL (for standard WOE and IV)
