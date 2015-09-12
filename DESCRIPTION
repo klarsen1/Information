@@ -1,6 +1,6 @@
 Package: Information
 Type: Package
-Title: Data exploration with information theory (WOE and NWOE analysis)
+Title: Data exploration with information theory (weight-of-evidence and information value)
 Version: 0.0.0.9000
 Date: 2015-09-12
 Authors@R: person("Larsen", "Kim", email = "kblarsen4@gmail.com", role = c("aut", "cre"))

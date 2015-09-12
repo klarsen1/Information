@@ -3,8 +3,8 @@
 #' \code{CreateInfoTables} returns WOE or NWOE tables (as data.frames), and a data.frame with IV or NIV values for all
 #' predictive variables. 
 #' 
-#' @param data input dataset for analysis (this is typically your training dataset)
-#' @param valid validation dataset (default is NULL). Must have the same variables as the training dataset
+#' @param data input data.frame for analysis (this is typically your training dataset)
+#' @param valid validation data.frame (default is NULL). Must have the same variables as the training dataset
 #' @param y dependent variable
 #' @param bins number of bins (default is 10)
 #' @param trt binary treatment variable (for net lift modeling -- i.e., NWOE and NIV). Default is NULL (for standard WOE and IV)
@@ -15,6 +15,7 @@
 #' @import parallel
 #' @import iterators
 #' @import doParallel
+#' @importFrom stats quantile
 #'
 #' @export CreateInfoTables
 #' @examples  
@@ -37,7 +38,7 @@
 #' print(NIV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 #' 
 #' ##------------------------------------------------------------
-#' ## NWOE analysis, validation
+#' ## NWOE analysis with cross validation
 #' ##------------------------------------------------------------
 #' data(train, package="Information")
 #' data(valid, package="Information")
@@ -100,12 +101,14 @@ CreateInfoTables <- function(data, valid=NULL, y, bins=10, trt=NULL, ncore=NULL)
       if (is.factor(data[[variables[i]]]) != is.factor(valid[[variables[i]]])){
         stop(paste0("ERROR: Variable type mismatchfor ", variables[i], " across validation and training dataframes (not a factor in both dataframes)"))
       }
-      if (is.character(data[[variables[i]]])==FALSE & is.factor(data[[variables[i]]])==FALSE){
-        cuts <- unique(quantile(data[[variables[i]]], probs=c(1:(bins-1)/bins), na.rm=TRUE, type=3))  
-      }
+      #if (is.character(data[[variables[i]]])==FALSE & is.factor(data[[variables[i]]])==FALSE){
+      #  q <- quantile(data[[variables[i]]], probs=c(1:(bins-1)/bins), na.rm=TRUE, type=3)
+      #  cuts <- unique(q)  
+      #}
     }
-    if (is.character(data[[variables[i]]])==FALSE){
-      cuts <- unique(quantile(data[[variables[i]]], probs=c(1:(bins-1)/bins), na.rm=TRUE, type=3))  
+    if (is.character(data[[variables[i]]])==FALSE & is.factor(data[[variables[i]]])==FALSE){
+      q <- quantile(data[[variables[i]]], probs=c(1:(bins-1)/bins), na.rm=TRUE, type=3)
+      cuts <- unique(q)  
     }
     summary_train <- Aggregate(data, variables[i], y, cuts, trt)
     if (crossval==TRUE){

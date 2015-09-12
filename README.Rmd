@@ -6,7 +6,7 @@ output:
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Why Use Information Theory for Data Exploration?
+# Why Use WOE Analysis?
 
 Binary classification models are perhaps the most common use-case in predictive analytics. The reason is that many key client actions across a wide range of industries are binary in nature, such as defaulting on a loan, clicking on an ad, or terminating a subscription. 
 
@@ -36,7 +36,6 @@ The purpose of uplift models is to estimate the difference between the test and 
 # Simple Example
 ```{r, echo = TRUE, message=FALSE}
 library(Information)
-library(gridExtra)
 
 # Basic WOE and IV -- no external cross validation
 # Set ncore=2 since CRAN does now allow more than 2 for examples
@@ -52,10 +51,18 @@ print(head(IV$Summary), row.names=F)
 print(IV$Tables$N_OPEN_REV_ACTS, row.names=F)
 ```
 
-# How to install
+# How to Install
 
-* The latest development version from
-```{r}
-devtools::install_github("klarsen1/Information", "klarsen1")
+You can install:
+
+* The latest development version from github with
+
+```{}
+devtools::lnstall_github("klarsen1/Information", "klarsen1")
 ```
 
+* The latest released version from CRAN with
+
+```{}
+install.packages("Information")
+```

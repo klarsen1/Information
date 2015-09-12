@@ -12,6 +12,6 @@ NWOE(t, x)
 \item{x}{predictor}
 }
 \description{
-\code{WOE} returns NWOE tables from data frames prepared by Aggregate(). This is only for net lift models.
+\code{WOE} returns NWOE tables from a data.frame prepared by Information::Aggregate(). This is only for net lift models.
 }
 

@@ -1,10 +1,12 @@
 #' Create WOE table
 #' 
-#' \code{WOE} returns NWOE tables from data frames prepared by Aggregate(). This is only for net lift models.
+#' \code{WOE} returns NWOE tables from a data.frame prepared by Information::Aggregate(). This is only for net lift models.
 #' 
 #' @param t table prepared by the Aggregate function
 #' @param x predictor
 #' 
+#' @importFrom stats ave
+#'
 #' @export NWOE
 
 NWOE <- function(t, x){

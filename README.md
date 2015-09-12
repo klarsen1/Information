@@ -1,6 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-Overview
-========
+Why Use WOE Analysis?
+=====================
 
 Binary classification models are perhaps the most common use-case in predictive analytics. The reason is that many key client actions across a wide range of industries are binary in nature, such as defaulting on a loan, clicking on an ad, or terminating a subscription.
 
@@ -18,7 +18,10 @@ WOE and IV analysis enable one to:
 -   Seamlessly handle missing values without imputation.
 -   Assess the predictive power of missing values.
 
-The `Information` package is designed to perform WOE and IV analysis for binary classification models as well as uplift models. To maximize speed, aggregations are done in `data.table`, and creation of WOE vectors can be distributed across multiple cores.
+About the Information Package
+=============================
+
+The `Information` package is designed to perform WOE and IV analysis for binary classification models as well as uplift models. To maximize performance, aggregations are done in `data.table`, and creation of WOE vectors can be distributed across multiple cores.
 
 Extensions to Exploratory Analysis for Uplift Models
 ====================================================
@@ -27,17 +30,18 @@ Consider a direct marketing program where a *test group* received an offer of so
 
 The purpose of uplift models is to estimate the difference between the test and control groups, and then using the resulting model to target *persuadables* – i.e., potential or existing clients that are on the fence and need some sort of offer or contract to sign up or buy a product. Thus, when preparing to build an uplift model, we cannot only focus on the log odds of \(Y=1\) (where \(Y\) is some binary outcome), we need to analyze the *log odds ratio* of \(Y=1\) for the test group versus the control group. This can be handled by the *net weight of evidence* (NWOE) and the *net information value* (NIV).
 
-Example
-=======
+Simple Example
+==============
 
 ``` r
 library(Information)
-library(gridExtra)
 
 # Basic WOE and IV -- no external cross validation
+# Set ncore=2 since CRAN does now allow more than 2 for examples
+# For real applications, leave ncore is NULL to get the default which is: number of cores - 1
 data(train, package="Information")
 train <- subset(train, TREATMENT==1)
-IV <- CreateTables(data=train, y="PURCHASE")
+IV <- CreateInfoTables(data=train, y="PURCHASE", ncore=2)
 
 # Show the first records of the IV summary table
 print(head(IV$Summary), row.names=F)
@@ -65,7 +69,19 @@ print(IV$Tables$N_OPEN_REV_ACTS, row.names=F)
     ##           [9,11]  453 0.09111022  0.8815772 0.8692672
     ##          [12,48]  567 0.11403862  0.9883818 1.0107695
 
-How to install
+How to Install
 ==============
 
-devtools::install\_github("klarsen1/Information", "klarsen1")
+You can install:
+
+-   The latest development version from github with
+
+<!-- -->
+
+    devtools::lnstall_github("klarsen1/Information", "klarsen1")
+
+-   The latest released version from CRAN with
+
+<!-- -->
+
+    install.packages("Information")

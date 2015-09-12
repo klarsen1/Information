@@ -5,6 +5,8 @@
 #' @param t table prepared by the Aggregate function
 #' @param x predictor
 #' 
+#' @importFrom stats ave
+#' 
 #' @export WOE
 
 

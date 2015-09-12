@@ -1,4 +1,4 @@
-#' @title Data exploration with information theory (WOE and NWOE analysis)
+#' @title Data exploration with information theory (weight-of-evidence and information value)
 #'
 #' @details  
 #' Given a data.frame with a set of predictive variables and 

@@ -4,7 +4,7 @@
 \name{Information}
 \alias{Information}
 \alias{Information-package}
-\title{Data exploration with information theory (WOE and NWOE analysis)}
+\title{Data exploration with information theory (weight-of-evidence and information value)}
 \description{
 The information package is designed to perform exploratory data analysis and variable screening for binary
 classification models using WOE and IV. The package also supports exploratory analysis and variable screening

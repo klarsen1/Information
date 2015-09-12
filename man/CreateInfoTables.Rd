@@ -8,9 +8,9 @@ CreateInfoTables(data, valid = NULL, y, bins = 10, trt = NULL,
   ncore = NULL)
 }
 \arguments{
-\item{data}{input dataset for analysis (this is typically your training dataset)}
+\item{data}{input data.frame for analysis (this is typically your training dataset)}
 
-\item{valid}{validation dataset (default is NULL). Must have the same variables as the training dataset}
+\item{valid}{validation data.frame (default is NULL). Must have the same variables as the training dataset}
 
 \item{y}{dependent variable}
 
@@ -44,7 +44,7 @@ print(head(NIV$Summary), row.names=FALSE)
 print(NIV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 
 ##------------------------------------------------------------
-## NWOE analysis, validation
+## NWOE analysis with cross validation
 ##------------------------------------------------------------
 data(train, package="Information")
 data(valid, package="Information")

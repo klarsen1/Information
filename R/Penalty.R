@@ -23,16 +23,16 @@ penalty <- function(t, v, d_net_lift){
       t$PENALTY <- 0
     } else{
        if (d_net_lift==0){
-          t$PENALTY <- ave(abs(t$IV_weight)*abs(t$WOE-v$WOE)*t$inside_valid, FUN=cumsum)
+          t$PENALTY <- stats::ave(abs(t$IV_weight)*abs(t$WOE-v$WOE)*t$inside_valid, FUN=cumsum)
        } else{
-         t$PENALTY <- ave(abs(t$NIV_weight)*abs(t$NWOE-v$NWOE)*t$inside_valid, FUN=cumsum)
+         t$PENALTY <- stats::ave(abs(t$NIV_weight)*abs(t$NWOE-v$NWOE)*t$inside_valid, FUN=cumsum)
        }
       t$inside_valid <- NULL
     }
   } else if (d_net_lift==0){
-    t$PENALTY <- ave(abs(t$IV_weight)*abs(t$WOE-v$WOE), FUN=cumsum)
+    t$PENALTY <- stats::ave(abs(t$IV_weight)*abs(t$WOE-v$WOE), FUN=cumsum)
   } else{
-    t$PENALTY <- ave(abs(t$NIV_weight)*abs(t$NWOE-v$NWOE), FUN=cumsum)
+    t$PENALTY <- stats::ave(abs(t$NIV_weight)*abs(t$NWOE-v$NWOE), FUN=cumsum)
   }
   t$inside_train <- NULL
   return(t)  
