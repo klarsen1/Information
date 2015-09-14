@@ -141,7 +141,7 @@ where multiplication of 10 is simply used to make NIV look more like IV. Note th
 # The Information R Package 
 The information package is designed to perform exploratory data analysis and variable screening for binary classification models using WOE and IV. To make the package as efficient as possible aggregations are done in data.table and creation of WOE vectors can be distributed across multiple cores.
 
-There are a number of R packages available that support WOE and IV (see a partial list below), but they are either primarily designed to build WOE-based models – e.g., naive Bayes classifiers – or they do not support the uplift use-case.
+There are a number of R packages available that support WOE and IV (see a partial list below), but they are either primarily designed to build WOE-based models – e.g., naive Bayes classifiers – or they do not support the uplift use-case. The `Information` package is specifically designed to perform data exploration by producing easy-to-read tables and graphs.
 
 ## Date Used in Examples
 The data is from an historical marketing campaign from the insurance industry and is automatically downloaded when you install the `Information` package. The data is stored in two `.RDA` files, one for the training dataset and one for the validation dataset. Each file has 68 predictive variables and 10k records. In addition, the datasets contain two key indicators: 
@@ -151,7 +151,7 @@ The data is from an historical marketing campaign from the insurance industry an
 
 ## Key Functions
 
-* `create_infotables()` creates WOE or NWOE tables for all variables in the input dataframe. Also produces a variable-strength summary data.frame.
+* `create_infotables()` creates WOE or NWOE tables and outputs a variable-strength summary data.frame (IV or NIV).
 * `plot_infotables` creates WOE or NWOE bar charts for one or more variables.
 
 ## External Cross Validation
@@ -241,6 +241,7 @@ IV <- create_infotables(data=train,
 The default number of bins is 10 but we can choose a different number if we desire more granularity. Note that the IV formula is fairly invariant to the number of bins. Also, note that the bins are selected such that the bins are evenly sized, to the extent that it is possible (depending on the number of ties in the data). 
 
 ```{r, echo=TRUE, eval=FALSE}
+# Note that this example is running on parallel mode
 IV <- create_infotables(data=train, 
                    valid=valid, 
                    y="PURCHASE", 
@@ -336,10 +337,12 @@ Communication. Univ of Illinois Press, 1949.
 
 [5] GAM: the Predictive Modeling Silver Bullet, ([via](http://multithreaded.stitchfix.com/blog/2015/07/30/gam/))
 
-# Other Packages that support WOE/IV
+# Other Packages that support WOE/IV or mutual information
 
 woe package, ([link](https://cran.r-project.org/web/packages/woe/woe.pdf))
 
 riv package (not to be confused with the riv packake in CRAN), ([link](http://www.r-bloggers.com/r-credit-scoring-woe-information-value-in-woe-package/]))
 
 klaR package, ([link](https://cran.r-project.org/web/packages/klaR/klaR.pdf))
+
+infotheo package, ([link](https://cran.r-project.org/web/packages/infotheo/infotheo.pdf))
