@@ -58,7 +58,7 @@ You can install:
 * The latest development version from github with
 
 ```{r, eval=FALSE}
-devtools::lnstall_github("klarsen1/Information", "klarsen1")
+devtools::install_github("klarsen1/Information", "klarsen1")
 ```
 
 * The latest released version from CRAN with

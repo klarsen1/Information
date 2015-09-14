@@ -19,7 +19,7 @@ penalty <- function(t, v, d_net_lift){
     v <- join(t[,c(n, "inside_train")], v, by=n, type="left")
     v[,sapply(v, is.numeric)] <- numcolwise(function(x) replace(x, is.na(x), 0))(v)
     # tag record that have validation buckets
-    t <- join(t, v[,c(n, "inside_valid")], type="left")
+    t <- join(t, v[,c(n, "inside_valid")], by=n, type="left")
     if (nrow(v)==0 | nrow(t)==0){
       t$PENALTY <- 0
     } else{
