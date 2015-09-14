@@ -3,13 +3,13 @@
 #' \code{create_infotables} returns WOE or NWOE tables (as data.frames), and a data.frame with IV or NIV values for all
 #' predictive variables. 
 #' 
-#' @param data input data.frame for analysis (this is typically your training dataset)
-#' @param valid validation data.frame (default is NULL). Must have the same variables as the training dataset
-#' @param y dependent variable
-#' @param bins number of bins (default is 10)
-#' @param trt binary treatment variable for uplift modeling (Default is NUL)
-#' @param ncore number of cores used. Default is to use available cores - 1
-#' @param parallel set to TRUE for parallel processing. Number of cores determined by the ncore parameter
+#' @param data input data.frame for analysis (this is typically your training dataset).
+#' @param valid validation data.frame (default is NULL). Must have the same variables as the training dataset.
+#' @param y dependent variable.
+#' @param bins number of bins (default is 10).
+#' @param trt binary treatment variable for uplift analysis (Default is NUL).
+#' @param ncore number of cores used. Default is to use available cores - 1.
+#' @param parallel set to TRUE for parallel processing. Number of cores is determined by the ncore parameter.
 #' 
 #' @import data.table
 #' @import foreach
@@ -25,7 +25,7 @@
 #' ##------------------------------------------------------------
 #' library(Information)
 #' data(train, package="Information")
-#' train <- subset(train, TREATMENT==1)[1:1000,]
+#' train <- subset(train, TREATMENT==1)
 #' IV <- Information::create_infotables(data=train, y="PURCHASE", parallel=FALSE)
 #' print(head(IV$Summary), row.names=FALSE)
 #' print(IV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
