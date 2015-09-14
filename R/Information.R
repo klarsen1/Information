@@ -23,15 +23,11 @@
 #' classification models using WOE and IV. The package also supports exploratory analysis and variable screening
 #' for uplift models (NWOE and NIV).
 #' 
-#' Note that the only functions you will need to call are create_infotables(), SinglePlot() and MultiPlot() 
-#' create_infotables() creates WOE/NWOE tables (accessed by Tables$<variable name>)
-#' and outputs a data.frame that contains IV or NIV for all variables.
-#' IV and NIV values are found in the Summary data.frame. 
+#' Note that the only functions you will need to call are create_infotables() and plot_infotables():
+#'  
+#'   - create_infotables() creates WOE or NWOE tables and outputs a variable-strength summary data.frame (IV or NIV)
 #' 
-#' SinglePlot() plots the WOE vector for a sigle variable
-#' 
-#' MultiPlot() plots WOE vectors for multiple variables on a single page. Multiple pages will be created
-#' if needed (9 plots per page). 
+#'   - plot_infotables() creates WOE or NWOE bar charts for one or more variables
 
 #'
 #' @name Information
