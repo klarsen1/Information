@@ -1,5 +1,5 @@
 
-#' Calculate cross validation penalty
+#' (helper function) Calculate cross validation penalty
 #' 
 #' \code{is.binary} returns TRUE if a variable is binary, and FALSE otherwise
 #' 

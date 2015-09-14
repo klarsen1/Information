@@ -44,7 +44,7 @@ train <- subset(train, TREATMENT==1)
 IV <- CreateInfoTables(data=train, y="PURCHASE", ncore=2)
 
 # Show the first records of the IV summary table
-print(head(IV$Summary), row.names=F)
+print(head(IV$Summary), row.names=FALSE)
 ```
 
     ##                     Variable        IV
@@ -57,7 +57,7 @@ print(head(IV$Summary), row.names=F)
 
 ``` r
 # Show the WOE table for the variable called N_OPEN_REV_ACTS
-print(IV$Tables$N_OPEN_REV_ACTS, row.names=F)
+print(IV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 ```
 
     ##  N_OPEN_REV_ACTS    N    Percent        WOE        IV
@@ -76,12 +76,12 @@ You can install:
 
 -   The latest development version from github with
 
-<!-- -->
-
-    devtools::lnstall_github("klarsen1/Information", "klarsen1")
+``` r
+devtools::lnstall_github("klarsen1/Information", "klarsen1")
+```
 
 -   The latest released version from CRAN with
 
-<!-- -->
-
-    install.packages("Information")
+``` r
+install.packages("Information")
+```

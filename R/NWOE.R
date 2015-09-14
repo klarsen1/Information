@@ -1,9 +1,9 @@
-#' Create WOE table
+#' Create WOE table (helper function)
 #' 
 #' \code{WOE} returns NWOE tables from a data.frame prepared by Information::Aggregate(). This is only for net lift models.
 #' 
 #' @param t table prepared by the Aggregate function
-#' @param x predictor
+#' @param x variable
 #' 
 #' @importFrom stats ave
 #'

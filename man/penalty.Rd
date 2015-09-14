@@ -2,7 +2,7 @@
 % Please edit documentation in R/Penalty.R
 \name{penalty}
 \alias{penalty}
-\title{Calculate cross validation penalty}
+\title{(helper function) Calculate cross validation penalty}
 \usage{
 penalty(t, v, d_net_lift)
 }

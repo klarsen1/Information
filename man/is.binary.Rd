@@ -2,7 +2,7 @@
 % Please edit documentation in R/IsBinary.R
 \name{is.binary}
 \alias{is.binary}
-\title{Calculate cross validation penalty}
+\title{(helper function) Calculate cross validation penalty}
 \usage{
 is.binary(x)
 }

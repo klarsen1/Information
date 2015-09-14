@@ -2,7 +2,7 @@
 % Please edit documentation in R/CheckInputs.R
 \name{CheckInputs}
 \alias{CheckInputs}
-\title{Check user inputs and convert factors to characters. Provide readable reasons if errors are found.}
+\title{(helper function) Check user inputs and convert factors to characters. Provide readable reasons if errors are found.}
 \usage{
 CheckInputs(train, valid, trt, y)
 }

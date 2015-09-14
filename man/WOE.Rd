@@ -2,14 +2,14 @@
 % Please edit documentation in R/WOE.R
 \name{WOE}
 \alias{WOE}
-\title{Create WOE tables from aggregated data}
+\title{Create WOE tables from aggregated data (helper function)}
 \usage{
 WOE(t, x)
 }
 \arguments{
 \item{t}{table prepared by the Aggregate function}
 
-\item{x}{predictor}
+\item{x}{variable}
 }
 \description{
 \code{WOE} returns WOE tables from data frames prepared by Aggregate()

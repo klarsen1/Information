@@ -34,7 +34,7 @@ Consider a direct marketing program where a *test group* received an offer of so
 The purpose of uplift models is to estimate the difference between the test and control groups, and then using the resulting model to target *persuadables* – i.e., potential or existing clients that are on the fence and need some sort of offer or contract to sign up or buy a product. Thus, when preparing to build an uplift model, we cannot only focus on the log odds of $Y=1$ (where $Y$ is some binary outcome), we need to analyze the *log odds ratio* of $Y=1$ for the test group versus the control group. This can be handled by the *net weight of evidence* (NWOE) and the *net information value* (NIV).
 
 # Simple Example
-```{r, echo = TRUE, message=FALSE}
+```{r, echo = TRUE, message=FALSE, eval=FALSE}
 library(Information)
 
 # Basic WOE and IV -- no external cross validation
@@ -42,13 +42,13 @@ library(Information)
 # For real applications, leave ncore is NULL to get the default which is: number of cores - 1
 data(train, package="Information")
 train <- subset(train, TREATMENT==1)
-IV <- CreateInfoTables(data=train, y="PURCHASE", ncore=2)
+IV <- create_infotables(data=train, y="PURCHASE", ncore=2)
 
 # Show the first records of the IV summary table
-print(head(IV$Summary), row.names=F)
+print(head(IV$Summary), row.names=FALSE)
 
 # Show the WOE table for the variable called N_OPEN_REV_ACTS
-print(IV$Tables$N_OPEN_REV_ACTS, row.names=F)
+print(IV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 ```
 
 # How to Install
@@ -57,12 +57,12 @@ You can install:
 
 * The latest development version from github with
 
-```{}
+```{r, eval=FALSE}
 devtools::lnstall_github("klarsen1/Information", "klarsen1")
 ```
 
 * The latest released version from CRAN with
 
-```{}
+```{r, eval=FALSE}
 install.packages("Information")
 ```

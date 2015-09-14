@@ -2,7 +2,7 @@
 % Please edit documentation in R/Aggregate.R
 \name{Aggregate}
 \alias{Aggregate}
-\title{Aggregate data for WOE/NWOE calculations}
+\title{(helper function )Aggregate data for WOE/NWOE calculations}
 \usage{
 Aggregate(data, x, y, breaks, trt)
 }

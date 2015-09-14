@@ -1,0 +1,44 @@
+#' Plot WOE or NWOE vectors
+#' 
+#' \code{plot_infotable} creates WOE or NWOE bar charts for one or more variables. 
+#' For multi-variable plots, bar charts will be displayed in a grid
+#' If more than 9 variables are plotted, plot_infotable will create multiple pages
+#' 
+#' @param variables vector of one more variables
+#' @param information_object object from the information package
+#' @param same_scales should all plots have the same limits on the y-axes (default is FALSE)
+#' @param show_values if set to TRUE, values will be displayed on the bar chart (default is FALSE)
+#' 
+#' @export plot_infotables
+#' @examples  
+#' ##------------------------------------------------------------
+#' ## WOE plots
+#' ##------------------------------------------------------------
+#' library(Information)
+#' data(train, package="Information")
+#' train <- subset(train, TREATMENT==1)[1:1000,]
+#' IV <- Information::create_infotables(data=train, y="PURCHASE", parallel=FALSE)
+#' 
+#' # Plotting a single variable
+#' Information::plot_infotables(IV, "N_OPEN_REV_ACTS")
+#' 
+#' # Plotting multiple variables
+#' Information::plot_infotables(IV, IV$Summary$Variable[1:4], same_scale=TRUE)
+#' 
+#' closeAllConnections()
+
+plot_infotables <- function(information_object=NULL, variables=NULL, same_scales=FALSE, show_values=FALSE) {
+
+  if (is.null(information_object)){
+    stop("ERROR: an Information object must be provided")
+  } else if (length(variables)==0 | is.null(variables)){
+     stop("ERROR: at least one variable must be provided")
+  } else if (length(variables)==1){
+     if (!(variables %in% names(information_object[["Tables"]]))){
+       stop(paste0("ERROR: variable ", variables, "not found in the information object"))
+     }
+     SinglePlot(information_object, variables, show_values = show_values)
+  } else{
+     MultiPlot(information_object, variables, same_scales = same_scales)
+  }
+}

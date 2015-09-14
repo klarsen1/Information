@@ -1,4 +1,4 @@
-#' Aggregate data for WOE/NWOE calculations
+#' (helper function )Aggregate data for WOE/NWOE calculations
 #' 
 #' \code{Aggregate} returns aggregated data for the WOE and NWOE functions
 #' 

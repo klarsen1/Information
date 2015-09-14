@@ -1,9 +1,9 @@
-#' Create WOE tables from aggregated data
+#' Create WOE tables from aggregated data (helper function)
 #' 
 #' \code{WOE} returns WOE tables from data frames prepared by Aggregate()
 #' 
 #' @param t table prepared by the Aggregate function
-#' @param x predictor
+#' @param x variable
 #' 
 #' @importFrom stats ave
 #' 

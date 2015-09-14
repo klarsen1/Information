@@ -1,4 +1,4 @@
-#' Calculate cross validation penalty
+#' (helper function) Calculate cross validation penalty
 #' 
 #' \code{penalty} returns the weighted cross validation penalty.
 #' 
@@ -6,7 +6,8 @@
 #' @param v valdation data (data.frame)
 #' @param d_net_lift is it a net lift model? (1=yes, 0=no)
 #' 
-#' @import plyr
+#' @importFrom  plyr join
+#' @importFrom plyr numcolwise
 #' @export penalty
 
 penalty <- function(t, v, d_net_lift){

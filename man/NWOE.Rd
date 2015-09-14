@@ -2,14 +2,14 @@
 % Please edit documentation in R/NWOE.R
 \name{NWOE}
 \alias{NWOE}
-\title{Create WOE table}
+\title{Create WOE table (helper function)}
 \usage{
 NWOE(t, x)
 }
 \arguments{
 \item{t}{table prepared by the Aggregate function}
 
-\item{x}{predictor}
+\item{x}{variable}
 }
 \description{
 \code{WOE} returns NWOE tables from a data.frame prepared by Information::Aggregate(). This is only for net lift models.
