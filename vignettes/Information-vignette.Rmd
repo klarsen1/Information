@@ -171,6 +171,8 @@ $$ \text{NIV} = \text{IV} - \text{total CV penalty} .\nonumber $$
 
 The same approach can be applied to NIV for the uplift use-case.
 
+Note that if a certain bin is not present in the validation data, the penalty will be set to zero for that bin.
+
 ## Example for a Traditional Binary Classification Problem
 
 ### Ranking All Variables Using Adjusted IV

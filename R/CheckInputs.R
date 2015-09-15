@@ -113,9 +113,24 @@ CheckInputs <- function(train, valid, trt, y){
   if (crossval==TRUE){
     valid <- as.data.frame(rapply(valid, as.character, classes="factor", how="replace"), stringsAsFactors = FALSE)
   }    
+  n <- names(train)
+  i <- NULL
+  keep <- rep(TRUE, ncol(train))
+  for (i in 1:ncol(train)){
+    l <- length(unique(train[[i]]))
+    if (is.character(train[[i]])){
+      if (l>1000){
+        print(paste0("Variable ", n[i], " was removed because it is a non-numeric variable with >1000 categories"))
+        keep[i] <- FALSE
+      }
+    } else if (l==1){
+      print(paste0("Variable ", n[i], " was removed because it has only 1 unique level"))
+      keep[i] <- FALSE
+    }
+  }
   if (crossval==TRUE){
-     return(list(train, valid))
+     return(list(train[,keep], valid))
   } else{
-    return(list(train))
+    return(list(train[,keep]))
   }
 }

@@ -33,8 +33,6 @@
 
 create_infotables <- function(data, valid=NULL, y, bins=10, trt=NULL, ncore=NULL, parallel=TRUE){
   
-  i <- NULL
-  
   ### Helper function
   combine <- function(x, ...) {
     lapply(seq_along(x),
@@ -53,7 +51,7 @@ create_infotables <- function(data, valid=NULL, y, bins=10, trt=NULL, ncore=NULL
   if (crossval==TRUE){
     valid <- c[[2]]
   }
-      
+  
   ### Set up output containers  
   variables <- names(data)[!(names(data) %in% c(trt, y))]
   d_netlift <- 0 # net lift indicator. This triggers different metrics
@@ -61,6 +59,11 @@ create_infotables <- function(data, valid=NULL, y, bins=10, trt=NULL, ncore=NULL
     d_netlift <- 1
   }
   
+  i <- NULL
+  
+  if (length(variables)==0){
+    stop("ERROR: no variables left after screening")
+  }
   
   if (parallel==TRUE){
      if (is.null(ncore)){
@@ -74,7 +77,7 @@ create_infotables <- function(data, valid=NULL, y, bins=10, trt=NULL, ncore=NULL
      ### Loop through variables
      loopResult <- foreach(i=1:length(variables), .combine='combine', .multicombine=TRUE,
                        .init=list(list(), list())) %dopar% {
-    
+
         data$var <- data[[variables[i]]]
         cuts <- NULL
         if (crossval==TRUE){

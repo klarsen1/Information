@@ -14,7 +14,12 @@ penalty <- function(t, v, d_net_lift){
   n <- names(t)[1]
   v$inside_valid <- 1
   t$inside_train <- 1
-  if (nrow(t) != nrow(v)){
+  equal_rows <- (nrow(t)==nrow(v))
+  same_rows <- FALSE
+  if (equal_rows){
+     same_rows <- (!(any(t[[n]]==v[[n]])==FALSE))     
+  }
+  if (same_rows==FALSE){
     # make v look like t
     v <- join(t[,c(n, "inside_train")], v, by=n, type="left")
     v[,sapply(v, is.numeric)] <- numcolwise(function(x) replace(x, is.na(x), 0))(v)
