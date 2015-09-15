@@ -339,11 +339,9 @@ Communication. Univ of Illinois Press, 1949.
 
 [5] GAM: the Predictive Modeling Silver Bullet, ([via](http://multithreaded.stitchfix.com/blog/2015/07/30/gam/))
 
-# Other Packages that support WOE/IV or mutual information
+# Other Packages that support information theory
 
 woe package, ([link](https://cran.r-project.org/web/packages/woe/woe.pdf))
-
-riv package (not to be confused with the riv packake in CRAN), ([link](http://www.r-bloggers.com/r-credit-scoring-woe-information-value-in-woe-package/]))
 
 klaR package, ([link](https://cran.r-project.org/web/packages/klaR/klaR.pdf))
 
