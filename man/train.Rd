@@ -4,7 +4,7 @@
 \name{train}
 \alias{train}
 \title{Training dataset}
-\format{A data frame with 4972 rows and 70 variables:
+\format{A data frame with 10000 rows and 70 variables:
 \itemize{
   \item TREATMENT: equals 1 if the person received the marketing offer, and 0 if the person was in the control group
   \item PURCHASE: equals 1 if the person accepted the offer, and 0 otherwise
