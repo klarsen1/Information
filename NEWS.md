@@ -1,9 +1,14 @@
 <!-- README.md is generated from NEWS.Rmd. Please edit that file -->
 Package: Information
 
-Version: 0.0.0.9000
+Version: 0.0.2
 
-Information version 0.0.0.9000
+Information version 0.0.1.9000
 ==============================
 
-First release of the Information package.
+Submit to CRAN.
+
+Information version 0.0.2
+=========================
+
+Shortened the title.

@@ -2,7 +2,9 @@
 Release summary
 ===============
 
-This is the first release of the Information package.
+The first submitted version was called 0.0.1.9000.
+
+Per suggestion by Kurt Hornik, the title was shortened. The package has been re-uploaded as version 0.0.2.
 
 Test environments
 =================
@@ -14,4 +16,8 @@ Test environments
 R CMD check results
 ===================
 
-There were no WARNINGS, ERRORS, or NOTES.
+I got NOTE: "File README.md cannot be checked without ‘pandoc’ being installed."
+
+I can't get rid of this unless I add the README.md file to .Rbuildignore, which does not seems like a good strategy.
+
+There were no WARNINGs or ERRORs.

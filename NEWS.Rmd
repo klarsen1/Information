@@ -8,7 +8,10 @@ output:
 
 Package: Information
 
-Version: 0.0.0.9000
+Version: 0.0.2
 
-# Information version 0.0.0.9000
-First release of the Information package. 
+# Information version 0.0.1.9000
+Submit to CRAN.
+
+# Information version 0.0.2
+Shortened the title. 

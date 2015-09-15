@@ -41,33 +41,14 @@ library(Information)
 # For real applications, leave ncore is NULL to get the default which is: number of cores - 1
 data(train, package="Information")
 train <- subset(train, TREATMENT==1)
-IV <- CreateInfoTables(data=train, y="PURCHASE", ncore=2)
+IV <- create_infotables(data=train, y="PURCHASE", ncore=2)
 
 # Show the first records of the IV summary table
 print(head(IV$Summary), row.names=FALSE)
-```
 
-    ##                     Variable        IV
-    ##              N_OPEN_REV_ACTS 1.0107695
-    ##         TOT_HI_CRDT_CRDT_LMT 0.9345902
-    ##         RATIO_BAL_TO_HI_CRDT 0.8232539
-    ##  D_NA_M_SNC_MST_RCNT_ACT_OPN 0.6355466
-    ##   M_SNC_OLDST_RETAIL_ACT_OPN 0.5573438
-    ##       M_SNC_MST_RCNT_ACT_OPN 0.5026402
-
-``` r
 # Show the WOE table for the variable called N_OPEN_REV_ACTS
 print(IV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 ```
-
-    ##  N_OPEN_REV_ACTS    N    Percent        WOE        IV
-    ##            [0,0] 1469 0.29545455 -2.0465968 0.6401443
-    ##            [1,2]  958 0.19267900 -0.5900120 0.6958705
-    ##            [3,3]  310 0.06234916  0.2033085 0.6986029
-    ##            [4,5]  583 0.11725664  0.4419768 0.7244762
-    ##            [6,8]  632 0.12711183  0.6148243 0.7810611
-    ##           [9,11]  453 0.09111022  0.8815772 0.8692672
-    ##          [12,48]  567 0.11403862  0.9883818 1.0107695
 
 How to Install
 ==============
@@ -77,7 +58,7 @@ You can install:
 -   The latest development version from github with
 
 ``` r
-devtools::lnstall_github("klarsen1/Information", "klarsen1")
+devtools::install_github("klarsen1/Information", "klarsen1")
 ```
 
 -   The latest released version from CRAN with
