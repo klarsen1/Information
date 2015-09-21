@@ -12,3 +12,17 @@ Information version 0.0.2
 =========================
 
 Shortened the title.
+
+Information version 0.0.3
+=========================
+
+Expanded documentation of the difference between creating individual plots versus grid plots.
+
+Information version 0.0.4
+=========================
+
+Changed the vignette index title.
+
+Added more exmaples to demonstrate the use of multiple cores.
+
+Used the dontrun markdown keyword instead of commenting out code that should not be tested.

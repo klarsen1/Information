@@ -4,7 +4,7 @@ author: "Kim Larsen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Information Package Vignette}
   %\VignetteEngine{knitr::rmarkdown_notangle}
   %\VignetteEncoding{UTF-8}
   \usepackage[utf8]{inputenc}
@@ -223,10 +223,24 @@ We can also plot this pattern for better visualization:
 plot_infotables(IV, "N_OPEN_REV_ACTS", show_values=TRUE)
 ```
 
-The MultiPlot() function plots multiple variables on the same page. If we are plotting more than nine variables, MultiPlot will simply spread the plots over multiple pages. Here we are plotting the top four variables:
+If we input a vector of variables, plot_infotables() will plot multiple variables on the same page for comparison purposes. If we are plotting more than nine variables,it will simply spread the plots over multiple pages. Here we are plotting the top four variables:
 
 ```{r, echo=TRUE, fig.width=7, fig.height=7}
 plot_infotables(IV, IV$Summary$Variable[1:4], same_scales=TRUE)
+```
+
+If the goal is to plot multiple variables individually, as opposed to a comparison-grid, we can loop through the variable names and create individual plots:
+
+```{r, eval=FALSE, echo=TRUE}
+# Get the names and loop through to create individual plots
+names <- names(IV$Tables)
+plots <- list()
+for (i in 1:length(names)){
+   plots[[i]] <- plot_infotables(IV, names[i])
+}
+
+# Showing the top 18 variables
+plots[1:4]
 ```
 
 ### Omitting Cross Validation

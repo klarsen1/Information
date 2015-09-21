@@ -29,7 +29,11 @@ Aggregate <- function(data, x, y, breaks, trt){
   }
   if (is.character(data[[x]])==FALSE & is.factor(data[[x]])==FALSE){    
     if (length(breaks)==1){
-      data$Group <- findInterval(data[[x]], breaks, rightmost.closed=TRUE)
+      if (breaks==max(data[[x]])){
+         data$Group <- findInterval(data[[x]], breaks, rightmost.closed=FALSE)
+      } else{
+        data$Group <- findInterval(data[[x]], breaks, rightmost.closed=TRUE)
+      }
     } else{
       data$Group <- findInterval(data[[x]], breaks)
     }

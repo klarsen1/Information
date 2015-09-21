@@ -8,13 +8,15 @@ output:
 
 # Release summary
 
-The first submitted version was called 0.0.1.9000.
+The current version is 0.0.3.
 
-Per suggestion by Kurt Hornik, the title was shortened. The package has been re-uploaded as version 0.0.2.
+Per suggestion by Kurt Hornik, the title was shortened. The package was re-uploaded as version 0.0.2.
+
+Made some additional changes to the documentation and uploaded it as version 0.0.3. 
 
 # Test environments
 
-* Local OS X install, R 3.1.2 using devtools::check()
+* Local OS X install, R 3.1.2 and R 3.2.2, using devtools::check()
 
 * win-builder (devel and release).
 
@@ -22,6 +24,8 @@ Per suggestion by Kurt Hornik, the title was shortened. The package has been re-
 
 I got NOTE: "File README.md cannot be checked without ‘pandoc’ being installed." 
 
-I can't get rid of this unless I add the README.md file to .Rbuildignore, which does not seems like a good strategy.
+I can't get rid of this unless I add the README.md file to .Rbuildignore, which does not seems like a good strategy. So I am ignorig this for now, hoping that the CRAN servers will have pandoc. 
 
-There were no WARNINGs or ERRORs.
+Devtools does throw the following message "Warning: Uncommited changes in git." I am not sure what git repo it is referring to and so I ignored this message.
+
+Other than that, there were no WARNINGs or ERRORs.

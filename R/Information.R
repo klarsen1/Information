@@ -2,13 +2,18 @@
 #'
 #' @details  
 #' Given a data.frame with a set of predictive variables and a binary response variable,
-#' create_infotables() will cycle through all variables and create
-#' NWOE or WOE tables. It will also rank all variables by their respective IV or NIV values. 
+#' create_infotables() will cycle through all variables and create NWOE or WOE tables.
+#' It will also rank all variables by their respective IV or NIV values and return the results in a data.frame. 
 #' 
-#' If requested, calculations can be distributed across multiple cores.
+#' The package needs minimal inputs. You do not have to explicitly specify which variables to evaluate or provide bins: 
+#' create_infotables() will process all variables in the dataset and generate appropriate bins for WOE/NWOE analysis.
 #' 
-#' NWOE analysis is only for uplift models. Thus, for NWOE analysis, you must have a "treatment" and a conrol group identified by a binary treatment indicator.
-#' For regular WOE analysis, all you need is a binary response variable (dependent variable).
+#' If requested, calculations can be distributed across multiple cores for better performance.
+#' 
+#' Note that NWOE analysis is only for uplift models. Thus, for NWOE analysis, you must have a "treatment" and a "control" group in your dataset. 
+#' The treatment and control groups should identified by a binary indicator variable (1/0).
+#' 
+#' For regular WOE analysis, on the other hand, all you need is a binary response variable (dependent variable).
 #' 
 #' You can cross validate your IV or NIV values by supplying a validation dataset. This will produce penalized IV/NIV values.
 #'
@@ -50,6 +55,24 @@
 #' # Plotting multiple variables
 #' Information::plot_infotables(IV, IV$Summary$Variable[1:4], same_scale=TRUE)
 #' 
+#' # If the goal is to plot multiple variables individually, as opposed to a comparison-grid, we can
+#' # loop through the variable names and create individual plots
+#' \dontrun{
+#' names <- names(IV$Tables)
+#' plots <- list()
+#' for (i in 1:length(names)){
+#'   plots[[i]] <- plot_infotables(IV, names[i])
+#' }
+#' # Showing the top 18 variables
+#' plots[1:18]
+#' }
+#' 
+#' # We can speed up the creation of the information tables by invoking the parallel option (default)
+#' # If we leave ncore as the default, create_infotables() will set ncore to available clusters - 1
+#' \dontrun{
+#' train <- subset(train, TREATMENT==1)
+#' IV <- Information::create_infotables(data=train, y="PURCHASE")
+#' }
 #' closeAllConnections()
 
 NULL
