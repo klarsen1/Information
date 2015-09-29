@@ -122,6 +122,8 @@ CheckInputs <- function(train, valid, trt, y){
       if (l>1000){
         print(paste0("Variable ", n[i], " was removed because it is a non-numeric variable with >1000 categories"))
         keep[i] <- FALSE
+      } else if (l==1){
+        print(paste0("Variable ", n[i], " was removed because it has only 1 unique value"))
       }
     } else if (l==1){
       print(paste0("Variable ", n[i], " was removed because it has only 1 unique level"))

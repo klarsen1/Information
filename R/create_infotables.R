@@ -31,12 +31,17 @@
 #' print(IV$Tables$N_OPEN_REV_ACTS, row.names=FALSE)
 #' closeAllConnections()
 
-create_infotables <- function(data, valid=NULL, y, bins=10, trt=NULL, ncore=NULL, parallel=TRUE){
+create_infotables <- function(data=NULL, valid=NULL, y=NULL, bins=10, trt=NULL, ncore=NULL, parallel=TRUE){
   
   ### Helper function
   combine <- function(x, ...) {
     lapply(seq_along(x),
            function(i) c(x[[i]], lapply(list(...), function(y) y[[i]])))
+  }
+  
+  ### Dataset provided?
+  if (is.null(data)){
+    stop("Error: No dataset provided")
   }
   
   ### If no validation dataset, no cross validation

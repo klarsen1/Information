@@ -67,7 +67,7 @@
 #' plots[1:18]
 #' }
 #' 
-#' # We can speed up the creation of the information tables by invoking the parallel option (default)
+#' # We can speed up the creation of the information tables by invoking the parallel=TRUE option (default)
 #' # If we leave ncore as the default, create_infotables() will set ncore to available clusters - 1
 #' \dontrun{
 #' train <- subset(train, TREATMENT==1)
