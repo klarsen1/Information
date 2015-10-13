@@ -1,7 +1,7 @@
 <!-- README.md is generated from NEWS.Rmd. Please edit that file -->
 Package: Information
 
-Version: 0.0.2
+Version: 0.0.4
 
 Information version 0.0.1.9000
 ==============================
@@ -21,8 +21,10 @@ Expanded documentation of the difference between creating individual plots versu
 Information version 0.0.4
 =========================
 
-Changed the vignette index title.
+-   Changed the vignette index title (the previous version's title just said "Vignette Title").
 
-Added more exmaples to demonstrate the use of multiple cores.
+-   Added more examples to demonstrate the use of multiple cores.
 
-Used the dontrun markdown keyword instead of commenting out code that should not be tested.
+-   Used the dontrun markdown keyword instead of commenting out code that should not be tested.
+
+-   Exclude character variables with only one unique value from WOE/NWOE calculations.

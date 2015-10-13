@@ -84,6 +84,7 @@ create_infotables <- function(data=NULL, valid=NULL, y=NULL, bins=10, trt=NULL, 
                        .init=list(list(), list())) %dopar% {
 
         data$var <- data[[variables[i]]]
+        
         cuts <- NULL
         if (crossval==TRUE){
            valid$var <- valid[[variables[i]]]

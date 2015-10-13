@@ -4,8 +4,8 @@
 \alias{create_infotables}
 \title{Create WOE/NWOE tables and rank variables by IV/NIV}
 \usage{
-create_infotables(data, valid = NULL, y, bins = 10, trt = NULL,
-  ncore = NULL, parallel = TRUE)
+create_infotables(data = NULL, valid = NULL, y = NULL, bins = 10,
+  trt = NULL, ncore = NULL, parallel = TRUE)
 }
 \arguments{
 \item{data}{input data.frame for analysis (this is typically your training dataset).}

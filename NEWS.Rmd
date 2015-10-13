@@ -8,7 +8,7 @@ output:
 
 Package: Information
 
-Version: 0.0.2
+Version: 0.0.4
 
 # Information version 0.0.1.9000
 Submit to CRAN.
@@ -20,8 +20,11 @@ Shortened the title.
 Expanded documentation of the difference between creating individual plots versus grid plots. 
 
 # Information version 0.0.4
-Changed the vignette index title.
 
-Added more exmaples to demonstrate the use of multiple cores.
+* Changed the vignette index title (the previous version's title just said "Vignette Title").
 
-Used the dontrun markdown keyword instead of commenting out code that should not be tested.
+* Added more examples to demonstrate the use of multiple cores.
+
+* Used the dontrun markdown keyword instead of commenting out code that should not be tested.
+
+* Exclude character variables with only one unique value from WOE/NWOE calculations.
