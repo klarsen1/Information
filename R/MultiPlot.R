@@ -6,7 +6,7 @@
 #' @param information_object object from the information package
 #' @param same_scales set to TRUE if all plots should have the same limits on the y-axes (default is FALSE)
 #' 
-#' @import grid
+#' @importFrom grid pushViewport viewport grid.newpage grid.layout
 #'
 #' @export MultiPlot
 

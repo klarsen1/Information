@@ -6,7 +6,7 @@
 #' @param variable variable for which we want to see the WOE pattern
 #' @param show_values if set to TRUE, values will be displayed on the bar chart (default is FALSE)
 #' 
-#' @import ggplot2
+#' @importFrom ggplot2 geom_bar aes xlab ylab ggtitle geom_text ggplot theme element_text element_blank ylim
 #'
 #' @export SinglePlot
 

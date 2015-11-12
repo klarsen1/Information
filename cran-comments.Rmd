@@ -8,16 +8,14 @@ output:
 
 # Release summary
 
-The current version is 0.0.4. Previous version was 0.0.3.
+The current version is 0.0.6. Previous version was 0.0.5.
 
 Differences between the two versions:
 
-- Expanded documentation
-
-- Used the dontrun markdown keyword instead of commenting out code that should not be tested.
-
-- Made one code change to CheckInputs.R. This was an enhancement and not a bug fix.
-
+- Automatically remove "class==Date" variables from table generation
+- Accepting input data of format tbl and tbl_df
+- More precise namespace imports to avoid clashes with the upcoming release of ggplot2 2.0.0
+- Check if the treatment parameter is binary.
 
 # Test environments
 
@@ -27,6 +25,4 @@ Differences between the two versions:
 
 # R CMD check results
 
-I got NOTE: "File README.md cannot be checked without ‘pandoc’ being installed." 
-
-I can't get rid of this unless I add the README.md file to .Rbuildignore, which does not seems like a good strategy. So I am ignorig this for now, hoping that the CRAN servers will have pandoc.
+I got the NOTE: "File README.md cannot be checked without ‘pandoc’ being installed." I can't get rid of this unless I add the README.md file to .Rbuildignore, which does not seems like a good strategy. So I am ignorig this for now, hoping that the CRAN servers will have pandoc.

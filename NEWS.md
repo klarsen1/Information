@@ -1,7 +1,7 @@
 <!-- README.md is generated from NEWS.Rmd. Please edit that file -->
 Package: Information
 
-Version: 0.0.4
+Version: 0.0.6
 
 Information version 0.0.1.9000
 ==============================
@@ -28,3 +28,18 @@ Information version 0.0.4
 -   Used the dontrun markdown keyword instead of commenting out code that should not be tested.
 
 -   Exclude character variables with only one unique value from WOE/NWOE calculations.
+
+-   Check if the treatment parameter is binary.
+
+Information version 0.0.5
+=========================
+
+-   Fixed a bug that occurs when binary variables have NAs
+
+Information version 0.0.6
+=========================
+
+-   Automatically remove "class==Date" variables from table generation
+-   Accepting input data of format tbl and tbl\_df
+-   More precise namespace imports to avoid clashes with the upcoming release of ggplot2 2.0.0
+-   Check if the treatment parameter is binary.

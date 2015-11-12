@@ -11,11 +11,11 @@
 #' @param ncore number of cores used. Default is to use available cores - 1.
 #' @param parallel set to TRUE for parallel processing. Number of cores is determined by the ncore parameter.
 #' 
-#' @import data.table
 #' @import foreach
-#' @import parallel
+#' @importFrom parallel detectCores 
 #' @import iterators
-#' @import doParallel
+#' @import utils
+#' @importFrom doParallel registerDoParallel stopImplicitCluster
 #' @importFrom stats quantile
 #'
 #' @export create_infotables

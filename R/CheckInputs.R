@@ -24,17 +24,24 @@ CheckInputs <- function(train, valid, trt, y){
     stop("ERROR: no observations in the training dataset")    
   }
   
-  if (class(train) != "data.frame"){
-    stop("ERROR: training dataset has to be of type data.frame")
+  if (length(class(train))>1){
+    if (!("data.frame" %in% class(train)))
+    stop("ERROR: training dataset has to be of type data.frame, tbl or tbl_df")
+  } else if (class(train) != "data.frame"){
+    if (class(train)=="")
+    stop("ERROR: training dataset has to be of type data.frame, tbl or tbl_df")
   }  
   
   if (crossval==TRUE){
     if (any(sort(names(train))==sort(names(valid)))==FALSE){
       stop("ERROR: validation and training datasets must have the same variables")
     }
-    
-    if (class(valid) != "data.frame"){
-      stop("ERROR: validation dataset has to be of type data.frame")
+    if (length(class(valid))>1){
+      if (!("data.frame" %in% class(valid)))
+        stop("ERROR: validation dataset has to be of type data.frame, tbl or tbl_df")
+    } else if (class(valid) != "data.frame"){
+      if (class(valid)=="")
+        stop("ERROR: training dataset has to be of type data.frame, tbl or tbl_df")
     }  
     if (nrow(valid)==0){
       stop("ERROR: no observations in the validation dataset")    
@@ -77,6 +84,11 @@ CheckInputs <- function(train, valid, trt, y){
     if (!is.binary(valid[[y]])){
       stop(paste0("ERROR: the dependent variable has to be binary. Check your training and validation datasets."))
     }
+    if (is.null(trt)==FALSE){
+      if (!is.binary(valid[[trt]])){
+        stop(paste0("ERROR: the treatment variable has to be binary. Check your training and validation datasets."))
+      }
+    }
     if (any(is.na(valid[[y]]))){
       stop(paste0("ERROR: dependent variable ", y, " has NAs in the input validation data frame"))        
     }
@@ -97,8 +109,8 @@ CheckInputs <- function(train, valid, trt, y){
     if (is.character(train[[trt]])==TRUE){
       stop(paste0("ERROR: the treatment indicator ", trt, " is a character variable. It has to be numeric"))
     }
-    if (!(sort(unique(train[[y]] %in% c(0,1))))){
-      stop(paste0("ERROR: the treatment indicator has to be binary"))
+    if (!is.binary(train[[trt]])){
+      stop(paste0("ERROR: the treatment indicator has to be binary. Check your training and validation datasets"))
     }
     if (any(is.na(train[[trt]]))){
       stop(paste0("ERROR: the treatment indicator ", trt, " has NAs in the input training data frame"))        
@@ -118,16 +130,21 @@ CheckInputs <- function(train, valid, trt, y){
   keep <- rep(TRUE, ncol(train))
   for (i in 1:ncol(train)){
     l <- length(unique(train[[i]]))
-    if (is.character(train[[i]])){
-      if (l>1000){
-        print(paste0("Variable ", n[i], " was removed because it is a non-numeric variable with >1000 categories"))
-        keep[i] <- FALSE
+    c <- class(train[[i]])
+    if (c=="Date"){
+      print(paste0("Variable ", n[i], " was removed because it is a Date variable"))
+    } else{
+      if (is.character(train[[i]])){
+        if (l>1000){
+          print(paste0("Variable ", n[i], " was removed because it is a non-numeric variable with >1000 categories"))
+          keep[i] <- FALSE
+        } else if (l==1){
+          print(paste0("Variable ", n[i], " was removed because it has only 1 unique value"))
+        }
       } else if (l==1){
-        print(paste0("Variable ", n[i], " was removed because it has only 1 unique value"))
+        print(paste0("Variable ", n[i], " was removed because it has only 1 unique level"))
+        keep[i] <- FALSE
       }
-    } else if (l==1){
-      print(paste0("Variable ", n[i], " was removed because it has only 1 unique level"))
-      keep[i] <- FALSE
     }
   }
   if (crossval==TRUE){
