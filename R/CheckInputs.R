@@ -133,6 +133,7 @@ CheckInputs <- function(train, valid, trt, y){
     c <- class(train[[i]])
     if (c=="Date"){
       print(paste0("Variable ", n[i], " was removed because it is a Date variable"))
+      keep[i] <- FALSE
     } else{
       if (is.character(train[[i]])){
         if (l>1000){
@@ -140,6 +141,7 @@ CheckInputs <- function(train, valid, trt, y){
           keep[i] <- FALSE
         } else if (l==1){
           print(paste0("Variable ", n[i], " was removed because it has only 1 unique value"))
+          keep[i] <- FALSE
         }
       } else if (l==1){
         print(paste0("Variable ", n[i], " was removed because it has only 1 unique level"))
