@@ -10,7 +10,7 @@
 
 <meta name="author" content="Kim Larsen" />
 
-<meta name="date" content="2015-09-16" />
+<meta name="date" content="2015-11-18" />
 
 <title>Information Package Vignette</title>
 
@@ -54,7 +54,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="header">
 <h1 class="title">Information Package Vignette</h1>
 <h4 class="author"><em>Kim Larsen</em></h4>
-<h4 class="date"><em>2015-09-16</em></h4>
+<h4 class="date"><em>2015-11-18</em></h4>
 </div>
 
 
@@ -79,7 +79,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1>Information Theory</h1>
 <p>Weight of evidence (WOE) and information value are closely related to concepts from <em>information theory</em> where one of the goals is to understand the uncertainty involved in predicting the outcome of random events given varying degrees of knowledge of other variables (see [2], [3], and [4]). Thus this is a perfect framework for variable screening and exploratory analysis for predictive modeling.</p>
 <p>Information theory kicked off when Claude Shannon (1948) wrote down an expression for the <em>entropy</em> of a probability distribution. Entropy is often described as the level of “disorder,” but in the context of information theory it is better to think of it as one’s level of uncertainty. High entropy means high uncertainty (you don’t know what tomorrow holds) and low entropy mean low uncertainty (there will be no surprises tomorrow).</p>
-<p>Suppose a friend tosses a coin and asks you to predict whether the toss came up heads or tails. There’s 50 percent probability of each possibility, so your prediction isn’t worth very much. This turns out to be the maximum amount of entropy for an event with two possible outcomes. Suppose instead that you know the coin is weighted so that it comes up heads 90 percent of the time. Now your job of making a prediction is easier – Shannon’s formula tells you exactly how much information you’ve gained compared to the previous situation.</p>
+<p>Suppose a friend tosses a coin and asks you to predict whether the toss came up heads or tails. There’s a 50 percent probability of each possibility, so your prediction isn’t worth very much. This turns out to be the maximum amount of entropy for an event with two possible outcomes. Suppose instead that you know the coin is weighted so that it comes up heads 90 percent of the time. Now your job of making a prediction is easier – Shannon’s formula tells you exactly how much information you’ve gained compared to the previous situation.</p>
 <p>Mutual information is a way of summarizing much knowing the value of one random variable tells you about another random variable (Shannon + Weaver 1949). If \( X \) and \( Y \) are independent, the mutual information is zero. Any correlations (positive, negative, or nonlinear) will result in positive mutual information. It turns out the mutual information of \( X \) and \( Y \) is nicely expressed in terms of entropy (\( H \)):</p>
 <p><span class="math">\[ \text{MI}(X,Y) = H(X) + H(Y) - H(X,Y). \nonumber \]</span></p>
 <p>Mutual information is the difference in predictability that you get from knowing the joint distribution \( p(X,Y) \) compared to knowing only the two marginal distributions \( p(X) \) and \( p(Y) \).</p>
@@ -107,20 +107,20 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Last, but not least, the WOE framework has ties to the well-known naive Bayes classifier, given by (see [1]):</p>
 <p><span class="math">\[ \log \frac{P(Y=1| X_1, \ldots, X_p)}{P(Y=0 | X_1, \ldots, X_p)} = \log \frac{P(Y=1)}{P(Y=0)} + \sum_{j=1}^p \log \frac{f(X_j | Y=1)}{f(X_j | Y=0)}. \nonumber \]</span></p>
 <p>The naive Bayes model essentially says that the conditional log odds is equal to the sum of the individual weight of evidence vectors. The word “naive” comes from the fact that this model relies on the assumption that all predictors are conditionally independent given \( Y \), which is a highly optimistic assumption.</p>
-<p>In the credit scoring industry a “semi-Naive” version of this model is quite popular. The idea is to transform the data into WOE vectors and then use logistic regression to fit the model</p>
+<p>In the credit scoring industry a “semi-naive” version of this model is quite popular. The idea is to transform the data into WOE vectors and then use logistic regression to fit the model</p>
 <p><span class="math">\[ \log \frac{P(Y=1| X_1, \ldots, X_p)}{P(Y=0 | X_1, \ldots, X_p)} = \log \frac{P(Y=1)}{P(Y=0)} + \sum_{j=1}^p \beta_j \log \frac{f(X_j | Y=1)}{f(X_j | Y=0)}, \nonumber \]</span></p>
 <p>thus partly relaxing the assumption that all predictors in the model are independent. It should be noted that the underlying WOE vectors are still estimated univariately and that the coefficients merely function as scalars. For a more general model, GAM is a great choice (see [5]).</p>
 </div>
 <div id="the-information-value" class="section level2">
 <h2>The Information Value</h2>
-<p>We can leverage WOE to measure the predictive strength of \(x_j\) – i.e., how well it helps us separate cases when \(Y=1) from cases when \(Y=0\). This is done through the <em>information value</em> (IV) which is defined like this:</p>
+<p>We can leverage WOE to measure the predictive strength of \(x_j\) – i.e., how well it helps us separate cases when \(Y=1\) from cases when \(Y=0\). This is done through the <em>information value</em> (IV) which is defined like this:</p>
 <p><span class="math">\[ \text{IV}_j = \int \log \frac{f(X_j | Y=1)}{f(X_j | Y=0)} \, (f(X_j | Y=1) - f(X_j | Y=0)) \, dx. \nonumber \]</span></p>
-<p>Note that the IV is essentially a weighted “sum” of all the individual WOE values where the weights incorporate the <em>absolute difference</em> between the numerator and the denominator (WOE captures the relative difference). Generally, if \( &lt; 0.05 \) the variable has very little predictive power and will not add any meaningful predictive power to your model.</p>
+<p>Note that the IV is essentially a weighted “sum” of all the individual WOE values where the weights incorporate the <em>absolute difference</em> between the numerator and the denominator (WOE captures the relative difference). Generally, if \(\text{IV} &lt; 0.05 \) the variable has very little predictive power and will not add any meaningful predictive power to your model.</p>
 </div>
 <div id="estimating-woe" class="section level2">
 <h2>Estimating WOE</h2>
 <p>The most common approach to estimating the conditional densities needed to calculate WOE is to bin \(X_j \) and then use a histogram-type estimate.</p>
-<p>Here is how it works: create a \(k 2 \) table where \(k \) is the number of bins, and the cells within the two columns count the number of records where \(Y=1\) and \(Y=0\), respectively. The bins are typically selected such that the bins are roughly evenly sized with respect to the number of records in each bin (if possible). The conditional densities are then obtained by calculating the “column percentages” from this table. The typical number of bins used is 10-20. If \(X_j\) is categorical, no binning is needed and the histogram estimator can be used directly. Moreover, missing values are treated as a separate bin and thus handled seamlessly.</p>
+<p>Here is how it works: create a \( k \) by \(2\) table where \(k \) is the number of bins, and the cells within the two columns count the number of records where \(Y=1\) and \(Y=0\), respectively. The bins are typically selected such that the bins are roughly evenly sized with respect to the number of records in each bin (if possible). The conditional densities are then obtained by calculating the “column percentages” from this table. The typical number of bins used is 10-20. If \(X_j\) is categorical, no binning is needed and the histogram estimator can be used directly. Moreover, missing values are treated as a separate bin and thus handled seamlessly.</p>
 <p>If \(B_1, , B_k \) denote the bins for \(X_j \), the WOE for \( X_j \) for bin \(i \) can be written as</p>
 <p><span class="math">\[ \text{WOE}_{ij} = \log \frac{P(X_j \in B_i | Y=1)}{P(X_j \in B_i | Y=0)}, \nonumber \]</span></p>
 <p>which means that the IV for variable \( X_j \) can be calculated as</p>
@@ -131,7 +131,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h1>Extensions to Exploratory Analysis for Uplift Models</h1>
 <p>Consider a direct marketing program where a <em>test group</em> received an offer of some sort and the <em>control group</em> did not receive anything. The test and control groups are based on a random split. The lift of the campaign is defined as the difference in success rates between the test and control groups. In other words, the program can only be deemed successful if the offer outperforms the “do nothing” (a.k.a baseline) scenario.</p>
 <p>The purpose of uplift models is to estimate the difference between the test and control groups and then using the resulting model to target <em>persuadables</em> – i.e., potential or existing clients that are on the fence and need some sort of offer to buy a product. Thus, when preparing to build an uplift model, we cannot only focus on the log odds of \( Y=1 \), we also need to consider the <em>log odds ratio</em> of \( Y=1 \) for the test group versus the control group. This leads to the <em>net weight of evidence</em> (NWOE) and the <em>net information value</em> (NIV). (Actual uplift modeling techniques are beyond the scope of this paper; we will stick to model exploration and variable screening.)</p>
-<p>The net weight of evidence (NWOE) is the difference between the WOEs for the test group (\( <em>{t} \)) and the control group (\( </em>{c} \)),</p>
+<p>The net weight of evidence (NWOE) is the difference between the WOEs for the test group and the control group</p>
 <p><span class="math">\[ \text{NWOE} = \text{WOE}_{t} - \text{WOE}_{c}, \nonumber \]</span></p>
 <p>which is equivalent to</p>
 <p><span class="math">\[ \text{NWOE}_j = \log \frac{f(x_j|Y=1)_{t}f(x_j|Y=0)_{c}}{f(x_j|Y=1)_{c}f(x_j|Y=0)_{t}}. \nonumber \]</span></p>
@@ -141,10 +141,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </div>
 <div id="the-information-r-package" class="section level1">
 <h1>The Information R Package</h1>
-<p>The information package is designed to perform exploratory data analysis and variable screening for binary classification models using WOE and IV. To make the package as efficient as possible aggregations are done in data.table and creation of WOE vectors can be distributed across multiple cores.</p>
+<p>The <code>Information</code> package is designed to perform exploratory data analysis and variable screening for binary classification models using WOE and IV. To make the package as efficient as possible aggregations are done in data.table and creation of WOE vectors can be distributed across multiple cores.</p>
 <p>There are a number of R packages available that support WOE and IV (see a partial list below), but they are either primarily designed to build WOE-based models – e.g., naive Bayes classifiers – or they do not support the uplift use-case. The <code>Information</code> package is specifically designed to perform data exploration by producing easy-to-read tables and graphs.</p>
-<div id="date-used-in-examples" class="section level2">
-<h2>Date Used in Examples</h2>
+<div id="data-used-in-examples" class="section level2">
+<h2>Data Used in Examples</h2>
 <p>The data is from an historical marketing campaign from the insurance industry and is automatically downloaded when you install the <code>Information</code> package. The data is stored in two <code>.RDA</code> files, one for the training dataset and one for the validation dataset. Each file has 68 predictive variables and 10k records. In addition, the datasets contain two key indicators:</p>
 <ul>
 <li><code>PURCHASE</code> This variable equals 1 if the client accepted the offer, and 0 otherwise</li>
@@ -160,11 +160,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </div>
 <div id="external-cross-validation" class="section level2">
 <h2>External Cross Validation</h2>
-<p>The information package supports external cross validation to check that the WOE and NWOE vectors are stable.</p>
+<p>The <code>Information</code> package supports external cross validation to check that the WOE and NWOE vectors are stable.</p>
 <p>Let’s assume that we have a training and a validation dataset, and we calculate WOE for both datasets using the same bin cutoffs. The cross validation penalty for bin \( B_i \) is given by</p>
 <p><span class="math">\[ \text{penalty}_i = | \text{WOE}_{\text{train}} - \text{WOE}_{\text{valid}} | \nonumber, \]</span></p>
 <p>and the total cross validation (CV) penalty is</p>
-<p><span class="math">\[ \sum_{i=1}^k |P(X_j \in B_i | Y=1) - P(X_j \in B_i | Y=0)| \times \text{penalty}_i \nonumber. \]</span></p>
+<p><span class="math">\[ \sum_{i=1}^k |P(X_j \in B_i | Y=1) - P(X_j \in B_i | Y=0)| \times \text{penalty}_i \nonumber, \]</span></p>
 <p>where the probabilities used to form the weights are from the training data. The <em>adjusted IV</em> is then defined as</p>
 <p><span class="math">\[ \text{NIV} = \text{IV} - \text{total CV penalty} .\nonumber \]</span></p>
 <p>The same approach can be applied to NIV for the uplift use-case.</p>
@@ -574,7 +574,7 @@ selected_members$Rank &lt;-<span class="st"> </span><span class="ot">NULL</span>
 <li><p>The purpose of exploratory analysis and variable screening is to get to know the data and assess “univariate” predictive strength, before we deploy more sophisticated variable selection approaches.</p></li>
 <li><p>The weight of evidence (WOE) and information value (IV) provide a great framework for performing exploratory analysis and variable screening prior to building a binary classifier (e.g., logistic regression). It seamlessly handles missing values and character variables, and the output is easy to interpret.</p></li>
 <li><p>The information value originates from information theory and is closely related to the concept of *mutual information (see [3], [4]).</p></li>
-<li><p>The information package is specifically written to perform this type of analysis using parallel processing. It also supports exploratory analysis for uplift models, a growing area within marketing analytics. The information package is not designed to transfer data into WOE vectors for Naive Bayes models, although this feature could be added later.</p></li>
+<li><p>The <code>Information</code> package is specifically written to perform this type of analysis using parallel processing. It also supports exploratory analysis for uplift models, a growing area within marketing analytics. The <code>Information</code> package is not designed to transfer data into WOE vectors for Naive Bayes models, although this feature could be added later.</p></li>
 </ul>
 </div>
 <div id="references" class="section level1">

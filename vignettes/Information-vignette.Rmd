@@ -43,7 +43,7 @@ expression for the *entropy* of a probability distribution. Entropy
 is often described as the level of "disorder," but in the context of information theory it is better to think of it as one's level of uncertainty. High entropy means high uncertainty (you don't know what tomorrow holds) and low entropy mean low uncertainty (there will be no surprises tomorrow).  
 
 Suppose a friend tosses a coin and asks you to predict whether the
-toss came up heads or tails. There's 50 percent probability of each
+toss came up heads or tails. There's a 50 percent probability of each
 possibility, so your prediction isn't worth very much. This turns out
 to be the maximum amount of entropy for an event with two possible
 outcomes. Suppose instead that you know the coin is weighted so that
@@ -92,23 +92,23 @@ $$ \log \frac{P(Y=1| X_1, \ldots, X_p)}{P(Y=0 | X_1, \ldots, X_p)} = \log \frac{
  
 The naive Bayes model essentially says that the conditional log odds is equal to the sum of the individual weight of evidence vectors. The word "naive" comes from the fact that this model relies on the assumption that all predictors are conditionally independent given \\(  Y \\), which is a highly optimistic assumption.  
 
-In the credit scoring industry a "semi-Naive" version of this model is quite popular. The idea is to transform the data into WOE vectors and then use logistic regression to fit the model
+In the credit scoring industry a "semi-naive" version of this model is quite popular. The idea is to transform the data into WOE vectors and then use logistic regression to fit the model
 
 $$ \log \frac{P(Y=1| X_1, \ldots, X_p)}{P(Y=0 | X_1, \ldots, X_p)} = \log \frac{P(Y=1)}{P(Y=0)} + \sum_{j=1}^p \beta_j \log \frac{f(X_j | Y=1)}{f(X_j | Y=0)}, \nonumber $$   
 
 thus partly relaxing the assumption that all predictors in the model are independent. It should be noted that the underlying WOE vectors are still estimated univariately and that the coefficients merely function as scalars. For a more general model, GAM is a great choice (see [5]).  
 
 ## The Information Value
-We can leverage WOE to measure the predictive strength of \\(x_j\\) – i.e., how well it helps us separate cases when \\(Y=1\) from cases when \\(Y=0\\). This is done through the *information value* (IV) which is defined like this:
+We can leverage WOE to measure the predictive strength of \\(x_j\\) – i.e., how well it helps us separate cases when \\(Y=1\\) from cases when \\(Y=0\\). This is done through the *information value* (IV) which is defined like this:
  
 $$ \text{IV}_j = \int \log \frac{f(X_j | Y=1)}{f(X_j | Y=0)} \, (f(X_j | Y=1) - f(X_j | Y=0)) \, dx. \nonumber $$
 
-Note that the IV is essentially a weighted "sum" of all the individual WOE values where the weights incorporate the *absolute difference* between the numerator and the denominator (WOE captures the relative difference). Generally, if \\(\text{IV} < 0.05 \\) the variable has very little predictive power and will not add any meaningful predictive power to your model.
+Note that the IV is essentially a weighted "sum" of all the individual WOE values where the weights incorporate the *absolute difference* between the numerator and the denominator (WOE captures the relative difference). Generally, if \\(\\text{IV} < 0.05 \\) the variable has very little predictive power and will not add any meaningful predictive power to your model.
 
 ## Estimating WOE
 The most common approach to estimating the conditional densities needed to calculate WOE is to bin \\(X_j \\) and then use a histogram-type estimate.
  
-Here is how it works: create a \\(k \times 2 \\) table where \\(k \\) is the number of bins, and the cells within the two columns count the number of records where \\(Y=1\\) and \\(Y=0\\), respectively. The bins are typically selected such that the bins are roughly evenly sized with respect to the number of records in each bin (if possible). The conditional densities are then obtained by calculating the “column percentages” from this table. The typical number of bins used is 10-20. If \\(X_j\\) is categorical, no binning is needed and the histogram estimator can be used directly. Moreover, missing values are treated as a separate bin and thus handled seamlessly.
+Here is how it works: create a \\( k \\) by \\(2\\) table where \\(k \\) is the number of bins, and the cells within the two columns count the number of records where \\(Y=1\\) and \\(Y=0\\), respectively. The bins are typically selected such that the bins are roughly evenly sized with respect to the number of records in each bin (if possible). The conditional densities are then obtained by calculating the “column percentages” from this table. The typical number of bins used is 10-20. If \\(X_j\\) is categorical, no binning is needed and the histogram estimator can be used directly. Moreover, missing values are treated as a separate bin and thus handled seamlessly.
 
 
 If \\(B_1, \ldots, B_k \\) denote the bins for \\(X_j \\), the WOE for \\( X_j \\) for bin \\(i \\) can be written as
@@ -124,7 +124,7 @@ Consider a direct marketing program where a *test group* received an offer of so
 
 The purpose of uplift models is to estimate the difference between the test and control groups and then using the resulting model to target *persuadables* – i.e., potential or existing clients that are on the fence and need some sort of offer to buy a product. Thus, when preparing to build an uplift model, we cannot only focus on the log odds of \\( Y=1 \\), we also need to consider the *log odds ratio* of \\( Y=1 \\) for the test group versus the control group. This leads to the *net weight of evidence* (NWOE) and the *net information value* (NIV). (Actual uplift modeling techniques are beyond the scope of this paper; we will stick to model exploration and variable screening.)
 
-The net weight of evidence (NWOE) is the difference between the WOEs for the test group (\\( \text{WOE}_{t} \\)) and the control group (\\( \text{WOE}_{c} \\)),
+The net weight of evidence (NWOE) is the difference between the WOEs for the test group and the control group
 
 $$ \text{NWOE} = \text{WOE}_{t} - \text{WOE}_{c}, \nonumber $$ 
 
@@ -139,11 +139,11 @@ $$ 10 \times \int \left( f(X_j|Y=1)_{t}f(X_j|Y=0)_{c} - f(X_j|Y=1)_{c}f(X_j|Y=0)
 where multiplication of 10 is simply used to make NIV look more like IV. Note that NWOE and NIV work just like IV and WOE, just from an uplift perspective. NIV measures  the strength of a given variable while NWOE describes the pattern of the relationship. Specifically, the higher the value of NIV, the better the given variable is at separating *self-selectors* – i.e., people who are self-motivated to buy – and *persuadables* that need to be motivated.
 
 # The Information R Package 
-The information package is designed to perform exploratory data analysis and variable screening for binary classification models using WOE and IV. To make the package as efficient as possible aggregations are done in data.table and creation of WOE vectors can be distributed across multiple cores.
+The `Information` package is designed to perform exploratory data analysis and variable screening for binary classification models using WOE and IV. To make the package as efficient as possible aggregations are done in data.table and creation of WOE vectors can be distributed across multiple cores.
 
 There are a number of R packages available that support WOE and IV (see a partial list below), but they are either primarily designed to build WOE-based models – e.g., naive Bayes classifiers – or they do not support the uplift use-case. The `Information` package is specifically designed to perform data exploration by producing easy-to-read tables and graphs.
 
-## Date Used in Examples
+## Data Used in Examples
 The data is from an historical marketing campaign from the insurance industry and is automatically downloaded when you install the `Information` package. The data is stored in two `.RDA` files, one for the training dataset and one for the validation dataset. Each file has 68 predictive variables and 10k records. In addition, the datasets contain two key indicators: 
 
 * `PURCHASE` This variable equals 1 if the client accepted the offer, and 0 otherwise
@@ -155,7 +155,7 @@ The data is from an historical marketing campaign from the insurance industry an
 * `plot_infotables` creates WOE or NWOE bar charts for one or more variables.
 
 ## External Cross Validation
-The information package supports external cross validation to check that the WOE and NWOE vectors are stable. 
+The `Information` package supports external cross validation to check that the WOE and NWOE vectors are stable. 
 
 Let's assume that we have a training and a validation dataset, and we calculate WOE for both datasets using the same bin cutoffs. The cross validation penalty for bin \\( B_i \\) is given by
 
@@ -163,7 +163,7 @@ $$ \text{penalty}_i = | \text{WOE}_{\text{train}} - \text{WOE}_{\text{valid}} | 
     
 and the total cross validation (CV) penalty is
 
-$$ \sum_{i=1}^k |P(X_j \in B_i | Y=1) - P(X_j \in B_i | Y=0)| \times \text{penalty}_i \nonumber. $$
+$$ \sum_{i=1}^k |P(X_j \in B_i | Y=1) - P(X_j \in B_i | Y=0)| \times \text{penalty}_i \nonumber, $$
 
 where the probabilities used to form the weights are from the training data. The *adjusted IV* is then defined as 
 
@@ -337,7 +337,7 @@ print(selected_members, row.names=FALSE)
 
 * The information value originates from information theory and is closely related to the concept of *mutual information (see [3], [4]).  
 
-* The information package is specifically written to perform this type of analysis using parallel processing. It also supports exploratory analysis for uplift models, a growing area within marketing analytics. The information package is not designed to transfer data into WOE vectors for Naive Bayes models, although this feature could be added later.
+* The `Information` package is specifically written to perform this type of analysis using parallel processing. It also supports exploratory analysis for uplift models, a growing area within marketing analytics. The `Information` package is not designed to transfer data into WOE vectors for Naive Bayes models, although this feature could be added later.
 
 # References
 
