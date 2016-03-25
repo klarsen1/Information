@@ -8,11 +8,11 @@ output:
 
 # Release summary
 
-The current version is 0.0.7. Previous version was 0.0.6.
+The current version is 0.0.8. Previous version was 0.0.7.
 
 Differences between the two versions:
 
-- Fixed issues with vignettes
+- Fixed a bug in the penalty calculation that occurs for certain cases.
 
 # Test environments
 
@@ -23,3 +23,5 @@ Differences between the two versions:
 # R CMD check results
 
 I got the NOTE: "File README.md cannot be checked without ‘pandoc’ being installed." I can't get rid of this unless I add the README.md file to .Rbuildignore, which does not seems like a good strategy. So I am ignorig this for now, hoping that the CRAN servers will have pandoc.
+
+In addition, I got the following note: "Possibly mis-spelled words in DESCRIPTION."

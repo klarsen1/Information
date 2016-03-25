@@ -1,13 +1,34 @@
 Package: Information
 Type: Package
-Title: Data Exploration with Information Theory (Weight-of-Evidence and Information Value)
-Version: 0.0.7
-Date: 2015-11-18
+Title: Data Exploration with Information Theory (Weight-of-Evidence and
+    Information Value)
+Version: 0.0.8
+Date: 2016-03-25
 Authors@R: person("Larsen", "Kim", email = "kblarsen4@gmail.com", role = c("aut", "cre"))
-Description: Performs exploratory data analysis and variable screening for binary classification models using weight-of-evidence (WOE) and information value (IV). In order to make the package as efficient as possible, aggregations are done in data.table and creation of WOE vectors can be distributed across multiple cores. The package also supports exploration for uplift models (NWOE and NIV).
-Depends: R (>= 3.1.2) 
+Description: Performs exploratory data analysis and variable screening for
+    binary classification models using weight-of-evidence (WOE) and information
+    value (IV). In order to make the package as efficient as possible, aggregations
+    are done in data.table and creation of WOE vectors can be distributed across
+    multiple cores. The package also supports exploration for uplift models (NWOE
+    and NIV).
+Depends:
+    R (>= 3.1.2)
 License: GPL (>=3)
-Imports: data.table, ggplot2, grid, plyr, utils, iterators, doParallel, parallel, foreach
+Imports:
+    data.table,
+    ggplot2,
+    grid,
+    plyr,
+    utils,
+    iterators,
+    doParallel,
+    parallel,
+    foreach
 LazyData: true
 VignetteBuilder: knitr
-Suggests: knitr, reshape2, ClustOfVar, rmarkdown
+Suggests:
+    knitr,
+    reshape2,
+    ClustOfVar,
+    rmarkdown
+RoxygenNote: 5.0.1

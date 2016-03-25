@@ -70,14 +70,22 @@ Aggregate <- function(data, x, y, breaks, trt){
       names(t) <- c("Group", "N", "Treatment", "Control", "y_1_t", "y_0_t", "y_1_c", "y_0_c")      
     }      
   }
+  
+  ## create the bin labels and a match key
   if (is.character(data[[x]]) | is.factor(data[[x]])){
     t[,x] <- t$Group
+    t[,"key"] <- t$Group
+    t$key <- ifelse(t$key=="", "_BLANK_", t$key)
   } else{
+    anyna <- 0
     for (i in 1:nrow(t)){
       if (is.na(t[i,1])){
+        anyna <- 1
         t[i,x] <- "NA"
+        t[i,"key"] <- "NA"
       } else{
-        t[i,x] <- paste0("[",round(t[i,"Min"],2),",",round(t[i,"Max"],2),"]")          
+        t[i,x] <- paste0("[",round(t[i,"Min"],2),",",round(t[i,"Max"],2),"]")
+        t[i,"key"] <- as.character(t[i,"Group"])
       }
     }
   }  

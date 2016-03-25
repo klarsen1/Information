@@ -17,6 +17,6 @@ WOE <- function(t, x){
   t$IV_weight <- t$y_1/sum_y_1 - t$y_0/sum_y_0
   t$IV_row <- t$WOE * t$IV_weight 
   t$IV <- ave(t$IV_row, FUN=cumsum)
-  t <- t[,c(x, "N", "Percent", "WOE", "IV", "IV_weight")]
+  t <- t[,c(x, "N", "Percent", "WOE", "IV", "IV_weight", "key")]
   return(t)
 }

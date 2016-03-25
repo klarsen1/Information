@@ -8,7 +8,7 @@ output:
 
 Package: Information
 
-Version: 0.0.7
+Version: 0.0.8
 
 # Information version 0.0.1.9000
 Submit to CRAN.
@@ -45,3 +45,6 @@ Expanded documentation of the difference between creating individual plots versu
 # Information version 0.0.7
  
  * Fixed issues with vignettes 
+
+# Information version 0.0.8
+ * Fixed a bug in the penalty calculation that occurs for certain cases.

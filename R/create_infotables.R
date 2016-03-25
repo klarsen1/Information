@@ -10,7 +10,7 @@
 #' @param trt binary treatment variable for uplift analysis (Default is NUL).
 #' @param ncore number of cores used. Default is to use available cores - 1.
 #' @param parallel set to TRUE for parallel processing. Number of cores is determined by the ncore parameter.
-#' 
+
 #' @import foreach
 #' @importFrom parallel detectCores 
 #' @import iterators
@@ -207,8 +207,10 @@ create_infotables <- function(data=NULL, valid=NULL, y=NULL, bins=10, trt=NULL, 
       ## insert results into the lists
       statslist[[i]] <- strength
       if (d_netlift==1){
+        nwoe_train$key <- NULL
         tables[[i]] <- nwoe_train
       } else{
+        woe_train$key <- NULL
         tables[[i]] <- woe_train
       }
     }

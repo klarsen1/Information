@@ -23,6 +23,6 @@ NWOE <- function(t, x){
   t$NIV_weight <- t$NIV_weight * C
   t$NIV_row <- t$NWOE * t$NIV_weight 
   t$NIV <- ave(t$NIV_row, FUN=cumsum)
-  t <- t[,c(x, "Percent", "Treatment", "Control", "NWOE", "WOE_t", "WOE_c", "NIV", "NIV_weight")]
+  t <- t[,c(x, "Percent", "Treatment", "Control", "NWOE", "WOE_t", "WOE_c", "NIV", "NIV_weight", "key")]
   return(t)
 }
