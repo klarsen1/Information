@@ -8,7 +8,7 @@ output:
 
 Package: Information
 
-Version: 0.0.8
+Version: 0.0.9
 
 # Information version 0.0.1.9000
 Submit to CRAN.
@@ -48,3 +48,6 @@ Expanded documentation of the difference between creating individual plots versu
 
 # Information version 0.0.8
  * Fixed a bug in the penalty calculation that occurs for certain cases.
+ 
+# Information version 0.0.9
+ * Removed the match-key from the WOE and NWOE tables when the parallel option is used.

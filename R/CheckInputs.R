@@ -33,6 +33,9 @@ CheckInputs <- function(train, valid, trt, y){
   }  
   
   if (crossval==TRUE){
+    if (length(names(train)) != length(names(valid))){
+      stop("ERROR: validation and training datasets must have the same variables")
+    }
     if (any(sort(names(train))==sort(names(valid)))==FALSE){
       stop("ERROR: validation and training datasets must have the same variables")
     }

@@ -135,8 +135,10 @@ create_infotables <- function(data=NULL, valid=NULL, y=NULL, bins=10, trt=NULL, 
            }
         }    
         if (d_netlift==1){
+           nwoe_train$key <- NULL
            list(nwoe_train, strength)
         } else{
+           woe_train$key <- NULL
            list(woe_train, strength)
         }
      } ## end of foreach

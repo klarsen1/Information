@@ -2,8 +2,8 @@ Package: Information
 Type: Package
 Title: Data Exploration with Information Theory (Weight-of-Evidence and
     Information Value)
-Version: 0.0.8
-Date: 2016-03-25
+Version: 0.0.9
+Date: 2016-04-08
 Authors@R: person("Larsen", "Kim", email = "kblarsen4@gmail.com", role = c("aut", "cre"))
 Description: Performs exploratory data analysis and variable screening for
     binary classification models using weight-of-evidence (WOE) and information

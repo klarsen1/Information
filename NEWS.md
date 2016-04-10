@@ -1,7 +1,7 @@
 <!-- README.md is generated from NEWS.Rmd. Please edit that file -->
 Package: Information
 
-Version: 0.0.6
+Version: 0.0.9
 
 Information version 0.0.1.9000
 ==============================
@@ -43,3 +43,18 @@ Information version 0.0.6
 -   Accepting input data of format tbl and tbl\_df
 -   More precise namespace imports to avoid clashes with the upcoming release of ggplot2 2.0.0
 -   Check if the treatment parameter is binary.
+
+Information version 0.0.7
+=========================
+
+-   Fixed issues with vignettes
+
+Information version 0.0.8
+=========================
+
+-   Fixed a bug in the penalty calculation that occurs for certain cases.
+
+Information version 0.0.9
+=========================
+
+-   Removed the match-key from the WOE and NWOE tables when the parallel option is used.
